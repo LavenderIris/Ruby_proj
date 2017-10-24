@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+  get 'bands/index'
+
   get ''  => 'sessions#index'
-  get 'main'  => "users#main"
+  get 'main'  => "bands#index"
   post 'users/create'  => 'users#create'
   post 'users/login'  => 'sessions#login'
 
