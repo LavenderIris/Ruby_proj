@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bands</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  
+</head>
+
+<style>
+  thead, th, table, td {
+    border: 1px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .spacing {
+    margin-left: 5%;
+  }
+  
+  .inline {
+      display:inline-block;
+  }
+
+  thead {
+    background-color: rgb(171, 179, 182);
+    font-weight: bold;
+  }
+
+  .m-l {
+    margin-left: 15%;
+  }
+
+  .formfield * {
+  vertical-align: top;
+}
+
+.a {
+        margin-left: 50%;
+    }
+
+.c {
+  margin-left: 30%;
+}
+  
+</style>  
+
+
+
+<body>
+
+
+
+<%= yield %>
+
+</body>
+</html>
