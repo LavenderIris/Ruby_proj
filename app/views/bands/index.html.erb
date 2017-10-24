@@ -1,16 +1,30 @@
-<h1>Bands#index</h1>
+<style>
+    .table {
+        width: auto;
+    }
+</style>
+
+
+<h3><%= @bandname %></h3>
+<h4>Venue Name: <%= @venuename %></h4>
+<h4>Location: <%= @venuelocation %></h4>
+<h4>State: <%= @venuestate %></h4>
+<h4>Date: <%= @eventdate %></h4>
 <table class="table">
+    <col width="400">
     <thead class="thead-inverse">
       <tr>
         <th>Songs</th>
       </tr>
     </thead>
     <tbody>
-        <% @songs.each do |s2| %>
+    <% @songlist.each do |s| %>
+        <% s["song"].each do |s2| %>
         <tr>
             <td><%=s2["name"]%></td>
         </tr>
         <% end %>
-    </tbody>
+    <% end %>
+    </tb
 
 </table>
