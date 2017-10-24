@@ -1,0 +1,16 @@
+<h1>Bands#index</h1>
+<table class="table">
+    <thead class="thead-inverse">
+      <tr>
+        <th>Songs</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% @songs.each do |s2| %>
+        <tr>
+            <td><%=s2["name"]%></td>
+        </tr>
+        <% end %>
+    </tbody>
+
+</table>
