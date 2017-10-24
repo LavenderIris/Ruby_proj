@@ -2,20 +2,20 @@ class UsersController < ApplicationController
 
     def create
         user = User.new(user_params)
-        if user.save 
+        if user.save
             flash[:success] = "You have successfully registered. Please login."
-        else 
+        else
             flash[:errors]=user.errors.full_messages
         end
         redirect_to ''
-    end 
+    end
 
     def main
         render 'users/main.html.erb'
     end
 
-    private 
+    private
     def user_params
-    params.require(:user).permit(:firstname, :lastname, :email, :location, :password)
+        params.require(:user).permit(:firstname, :lastname, :email, :location, :password)
     end
 end

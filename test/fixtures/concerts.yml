@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2017-10-24
+  venue: MyString
+  city: MyString
+  state: MyString
+  setlist: 
+  band: one
+  user: one
+
+two:
+  date: 2017-10-24
+  venue: MyString
+  city: MyString
+  state: MyString
+  setlist: 
+  band: two
+  user: two
