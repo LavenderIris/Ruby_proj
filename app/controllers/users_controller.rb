@@ -7,7 +7,7 @@ class UsersController < ApplicationController
         else 
             flash[:errors]=user.errors.full_messages
         end
-        redirect_to '/main'
+        redirect_to ''
     end 
 
     def main
