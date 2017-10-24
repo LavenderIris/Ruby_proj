@@ -56,7 +56,7 @@ GEM
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.9.18)
-    globalid (0.4.0)
+    globalid (0.4.1)
       activesupport (>= 4.2.0)
     httparty (0.15.6)
       multi_xml (>= 0.5.2)
@@ -89,13 +89,10 @@ GEM
     nio4r (2.1.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
-<<<<<<< HEAD
     pg (0.21.0)
-=======
     pry (0.11.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
->>>>>>> 52d034f1280870658c15653a227484569aced283
     puma (3.10.0)
     rack (2.0.3)
     rack-test (0.6.3)
@@ -181,11 +178,8 @@ DEPENDENCIES
   jquery-rails
   json
   listen (~> 3.0.5)
-<<<<<<< HEAD
   pg
-=======
   pry
->>>>>>> 52d034f1280870658c15653a227484569aced283
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
   sass-rails (~> 5.0)
@@ -197,4 +191,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   1.16.0.pre.3
+   1.15.4
