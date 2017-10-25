@@ -5,6 +5,7 @@
     }
 </style>
 
+<i class="fa fa-headphones" aria-hidden="true">Music We Love</i>
 
 <h1>Main dashboard</h1>
 
@@ -14,17 +15,27 @@
         <form action="/friends/create" method="post">
             <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
         </form>
-
         <h3>Friends</h3>
         <table>
             <thead>
                 <td>Names:</td>
             </thead>
             <tbody>
+            <% @friends.each do |friend| %>
+                <tr>
+                    <td><a href="users/<%=friend.id%>"><%=friend.first_name%> <%=friend.last_name%></a></td>
 
+                </tr>
+            <% end %>
             </tbody>
 
         </table>
+
+        <p>Find friends</p>
+        <form action="/users/<%=current_user.id %>" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"> 
+        </form>
+
 
         <br>
         <br>

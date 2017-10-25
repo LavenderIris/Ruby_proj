@@ -15,10 +15,12 @@ class UsersController < ApplicationController
     end
 
     def show
-        @user = User.find(:id)
+        @user = User.find(params[:id])
     end
 
     def show_dashboard
+        @friends = User.find(session[:id]).friends
+
         render 'users/main.html.erb'
     end
 
