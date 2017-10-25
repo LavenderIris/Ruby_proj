@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <style>
     .table {
         width: auto;
@@ -26,7 +25,7 @@
     <% @songlist.each do |s| %>
         <% s["song"].each do |s2| %>
         <tr>
-            <td class="songclick"><%=s2["name"]%></td>
+            <td id="lyrics"><%=s2["name"]%></td>
         </tr>
         <% end %>
     <% end %>
@@ -81,20 +80,82 @@
         </div>
     </div>
 
+<div class = "col" id = "lyrics" >
+    <script type="text/javascript">
+        function getLyrics(id) {
 
+            //this callback contains another query to get lyrics after we've retried the song id
+            this.jsonp_callback = function(data){
+                $.ajax({
+                    type: "GET",
+                    data: {
+                        apikey:"f3852752b58ca26b3340a0ae930e9086",
+                        format:"jsonp",
+                        callback:"jsonp_callback_lyrics"
+                    },
+                    url: "http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=" + data["message"]["body"]["track_list"][0]["track"]["track_id"],
+                    dataType: "jsonp",
+                    jsonpCallback: 'jsonp_callback_lyrics',
+                    contentType: 'application/json'
+                });
+            };
+            
+
+            //this callback adds lyrics to the #lyrics div
+            this.jsonp_callback_lyrics = function(data){
+                console.log(data["message"]["body"]["lyrics"])
+
+                console.log(data["message"]["body"]["lyrics"]["lyrics_body"][40])
+                console.log(data["message"]["body"]["lyrics"]["lyrics_body"][41])
+                console.log(data["message"]["body"]["lyrics"]["lyrics_body"][42])
+                console.log(data["message"]["body"]["lyrics"]["lyrics_body"][43])
+                
+                var lyrics = data["message"]["body"]["lyrics"]["lyrics_body"]
+                var string = "<p>"
+
+                for (var i=0; i<lyrics.length - 69; i++){
+                    string += lyrics[i]
+                    if (lyrics[i+1] == "\n" && lyrics[i+2] == "\n"){
+                        string += "</p><p>"
+                    }
+
+                }
+                string += "</p>"
+
+                console.log(string)
+                $("#lyrics").html(string);
+            };
+
+
+            //this finds the song's id using just the name of the song
+            $.ajax({
+            type: "GET",
+            data: {
+                apikey:"f3852752b58ca26b3340a0ae930e9086",
+                q_track:id,
+                format:"jsonp",
+                callback:"jsonp_callback"
+            },
+            url: "http://api.musixmatch.com/ws/1.1/track.search",
+            dataType: "jsonp",
+            jsonpCallback: 'jsonp_callback',
+            contentType: 'application/json'
+            });
+
+        }
+    </script>
+</div>
 
 
 
 
 </div> 
 
-=======
 <% if @bands %>
     <% @bands.each do |b| %>
         <a href="/bands/<%= b.id %>/"><%= b.name %></a>
     <% end %>
 <% end %>
->>>>>>> e36dda2794e1dca0e595e61159a70a129023c1b8
 
 <form action="/bands/new" method="post">
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">

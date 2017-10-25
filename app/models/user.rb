@@ -8,7 +8,7 @@ class User < ApplicationRecord
     has_many :friendships, foreign_key: :user_id, class_name: :Friendship
     has_many :friends, through: :friendships
 
-    validates :firstname, :lastname, presence: true
+    validates :first_name, :last_name, presence: true
     validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
     validates_uniqueness_of :email, presence: true
 
