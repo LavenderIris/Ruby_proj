@@ -5,25 +5,36 @@ class BandsController < ApplicationController
     end
 
     def new
-        @response = HTTParty.get("https://ws.audioscrobbler.com/2.0/", :query => {:method => "artist.search", :artist => params[:band], :limit => "1", :api_key => "ba268e660cd43a240846b8eec02b92f9", :format => "json"})
+        unless Band.where(name:params[:band])
+            @response = HTTParty.get("https://ws.audioscrobbler.com/2.0/", :query => {:method => "artist.search", :artist => params[:band], :limit => "1", :api_key => "ba268e660cd43a240846b8eec02b92f9", :format => "json"})
 
-        @band = Band.new(name:params[:band],mb_id:@response["results"]["artistmatches"]["artist"][0]["mbid"])
+            @band = Band.new(name:params[:band],mb_id:@response["results"]["artistmatches"]["artist"][0]["mbid"])
 
-        @response = HTTParty.get("https://ws.audioscrobbler.com/2.0/", :query => {:method => "artist.gettags", :mbid => @band["mb_id"], :api_key => "ba268e660cd43a240846b8eec02b92f9", :format => "json"})
+            @response = HTTParty.get("https://ws.audioscrobbler.com/2.0/", :query => {:method => "artist.gettags", :mbid => @band["mb_id"], :api_key => "ba268e660cd43a240846b8eec02b92f9", :format => "json"})
 
-        @tag = @response["tags"]["tag"][0]["name"]
-        @band["tag"] = @tag
+            @tag = @response["tags"]["tag"][0]["name"]
+            @band["tag"] = @tag
 
-        @response = HTTParty.get("https://ws.audioscrobbler.com/2.0/", :query => {:method => "tag.gettopartists", :tag => @band["tag"], :api_key => "ba268e660cd43a240846b8eec02b92f9", :format => "json"})
+            @response = HTTParty.get("https://ws.audioscrobbler.com/2.0/", :query => {:method => "tag.gettopartists", :tag => @band["tag"], :api_key => "ba268e660cd43a240846b8eec02b92f9", :limit => "5", :format => "json"})
 
-        @similars = JSON.parse(@response.body)
-        @band["similar"] = @similars
+            @similars = JSON.parse(@response.body)
+            @band["similar"] = @similars
 
-        if @band.save
-            redirect_to '/bands'
+            if @band.save
+                redirect_to '/bands'
+            else
+                flash[:errors] = ["Oops, something went wrong"]
+                redirect_to '/bands'
+            end
         else
-            flash[:errors] = ["Oops, something went wrong"]
-            redirect_to '/bands'
+            @band = Band.where(name:params[:band]).take
+            redirect_to '/bands/'+@band.id
         end
+    end
+
+    def show
+        @band = Band.find(params[:id])
+        @similar = @band.similar["topartists"]
+        @concerts = Concert.where(band:@band)
     end
 end

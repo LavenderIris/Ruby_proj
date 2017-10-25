@@ -1,4 +1,4 @@
-<% if @user.id.contains?(current_user) %>
+<% if @user.id.include?(current_user) %>
     <form action="/friends/<%= @user.id %>" method="post">
         <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
         <input type="hidden" name="_method" value="delete">
