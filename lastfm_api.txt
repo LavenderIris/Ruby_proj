@@ -1,0 +1,4 @@
+Application name	concert app
+API key	ba268e660cd43a240846b8eec02b92f9
+Shared secret	9f55b4c47ffcbc584e307d6c2c099167
+Registered to	jimpollaro

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <style>
     .table {
         width: auto;
@@ -26,7 +25,7 @@
     <% @songlist.each do |s| %>
         <% s["song"].each do |s2| %>
         <tr>
-            <td class="songclick"><%=s2["name"]%></td>
+            <td><%=s2["name"]%></td>
         </tr>
         <% end %>
     <% end %>
@@ -80,24 +79,7 @@
         async defer></script>
         </div>
     </div>
-
-
-
-
-
-
 </div> 
 
-=======
-<% if @bands %>
-    <% @bands.each do |b| %>
-        <a href="/bands/<%= b.id %>/"><%= b.name %></a>
-    <% end %>
-<% end %>
->>>>>>> e36dda2794e1dca0e595e61159a70a129023c1b8
 
-<form action="/bands/new" method="post">
-    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-    <input id="searchName" type="text" name="band[search]" value="Enter a band name">
-    <input type="submit" name="" value="Search">
-</form>
+</body>
