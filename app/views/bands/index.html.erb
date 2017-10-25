@@ -25,7 +25,7 @@
     <% @songlist.each do |s| %>
         <% s["song"].each do |s2| %>
         <tr>
-            <td><%=s2["name"]%></td>
+            <td class="songclick"><%=s2["name"]%></td>
         </tr>
         <% end %>
     <% end %>
@@ -79,6 +79,12 @@
         async defer></script>
         </div>
     </div>
+
+
+
+
+
+
 </div> 
 
 
