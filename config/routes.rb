@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   delete '/friends/:id' => 'friends#destroy'
   post '/friends/:id' => 'friends#create'
   post '/bands/new' => 'bands#new'
+  get '/bands/new' => 'bands#new'
   get '/bands' => 'bands#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
