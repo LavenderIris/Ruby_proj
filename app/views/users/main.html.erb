@@ -1,7 +1,44 @@
-<<<<<<< HEAD
-<h1>Dashboard</h1>
-=======
-<form action="/friends/create" method="post">
-    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-</form>
->>>>>>> 8ae9bd623db9e730465eb8a1d05ec78bad4c2d62
+<style>
+    .table {
+        width: auto;
+        display: block;
+    }
+</style>
+
+
+<h1>Main dashboard</h1>
+
+<div class="container">
+    <div class="row">
+        <div class = "col">
+        <form action="/friends/create" method="post">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        </form>
+
+        <h3>Friends</h3>
+        <table>
+            <thead>
+                <td>Names:</td>
+            </thead>
+            <tbody>
+
+            </tbody>
+
+        </table>
+
+        <br>
+        <br>
+        <h3>past shows attended</h3>
+
+        <table>
+                <thead>
+                    <td>Show details:</td>
+                </thead>
+                <tbody>
+    
+                </tbody>
+    
+            </table>
+        </div>
+    </div>
+</div>

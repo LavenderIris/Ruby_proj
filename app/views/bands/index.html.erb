@@ -1,8 +1,100 @@
+<<<<<<< HEAD
+<style>
+    .table {
+        width: auto;
+    }
+</style>
+
+<div class = "container" >
+    <div class = "row" >
+        <div class = "col-md-6" >
+
+<h3><%= @bandname %></h3>
+<h4>Venue Name: <%= @venuename %></h4>
+<h4>Location: <%= @venuelocation %></h4>
+<h4>State: <%= @venuestate %></h4>
+<h4>Date: <%= @eventdate %></h4>
+
+<table class="table">
+    <col width="400">
+    <thead class="thead-inverse">
+      <tr>
+        <th>Songs</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @songlist.each do |s| %>
+        <% s["song"].each do |s2| %>
+        <tr>
+            <td class="songclick"><%=s2["name"]%></td>
+        </tr>
+        <% end %>
+    <% end %>
+    </tbody>
+
+</table>
+
+</div>
+
+<div class = "col-md-6">
+
+    <body onload="initialize(), codeAddress()">
+    <div id="map" style="width: 320px; height: 480px;"></div>
+
+
+        <script>
+        var geocoder;
+        var map;
+        function initialize() {
+        geocoder = new google.maps.Geocoder();
+        //coords in LatLng() is where the map will center to when initialized 
+        var latlng = new google.maps.LatLng(<%= @lat %>, <%= @longitude %>);
+        var mapOptions = {
+        zoom: 10,
+        center: latlng
+        }
+        map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        }
+
+        //array of coords to render as markers
+        var locations = [{lat:<%= @lat %>, lng:<%= @longitude %>}]
+        //iterate through each coord pair and create a marker on the map
+        function codeAddress(){
+        for (var i=0;i<locations.length;i++){
+        geocoder.geocode( { 'latLng': locations[i]}, function(results, status) {
+        if (status == 'OK') {
+            var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+        });
+        }
+        }
+
+        //api key
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZlytKX1vyVfQi2Lw-1Zfuu1xKKFho68o&libraries=places&callback=initAutocomplete"
+        async defer></script>
+        </div>
+    </div>
+
+
+
+
+
+
+</div> 
+
+=======
 <% if @bands %>
     <% @bands.each do |b| %>
         <a href="/bands/<%= b.id %>/"><%= b.name %></a>
     <% end %>
 <% end %>
+>>>>>>> e36dda2794e1dca0e595e61159a70a129023c1b8
 
 <form action="/bands/new" method="post">
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">

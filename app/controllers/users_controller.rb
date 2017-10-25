@@ -18,6 +18,10 @@ class UsersController < ApplicationController
         @user = User.find(:id)
     end
 
+    def show_dashboard
+        render 'users/main.html.erb'
+    end
+
     private
     def user_params
         params.require(:user).permit(:firstname, :lastname, :email, :location, :password)
