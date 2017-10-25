@@ -18,6 +18,9 @@ class BandsController < ApplicationController
     @lat = venue["city"]["coords"]["lat"]
   end
 
-
+  def new
+      response.body = HTTParty.get("https://ws.audioscrobbler.com/2.0/",:query => { :method => "artist.getsimilar", :mbid => "95e1ead9-4d31-4808-a7ac-32c3614c116b", :api_key => "ba268e660cd43a240846b8eec02b92f9", :limit => "5", :format => "json"}, :headers => {:raw => "true"} )
+      puts response
+  end
 
 end
