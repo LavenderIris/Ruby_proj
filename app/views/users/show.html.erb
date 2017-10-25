@@ -1,4 +1,4 @@
-<% if @user.id.include?(current_user) %>
+<% if @user.id!=current_user %>
     <form action="/friends/<%= @user.id %>" method="post">
         <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
         <input type="hidden" name="_method" value="delete">
@@ -15,3 +15,54 @@
         <input type="submit" name="" value="Follow">
     </form>
 <% end %>
+
+
+<style>
+    .table {
+        width: auto;
+        display: block;
+    }
+</style>
+
+
+    <h1>Learn more about: <%= @user.first_name %> <%= @user.last_name %></h1>
+
+<div class="container">
+    <div class="row">
+        <div class = "col">
+        <form action="/friends/create" method="post">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        </form>
+        <h3>Friends</h3>
+        <table>
+            <thead>
+                <td>Names:</td>
+            </thead>
+            <tbody>
+            <% @user.friends.each do |friend| %>
+                <tr>
+                    <td><a href="/users/<%=friend.id%>"><%=friend.first_name%> <%=friend.last_name%></a></td>
+
+                </tr>
+            <% end %>
+            </tbody>
+
+        </table>
+
+        <br>
+        <br>
+        <h3>past shows attended</h3>
+
+        <table>
+                <thead>
+                    <td>Show details:</td>
+                </thead>
+                <tbody>
+    
+                </tbody>
+    
+            </table>
+        </div>
+    </div>
+    </div>
+    

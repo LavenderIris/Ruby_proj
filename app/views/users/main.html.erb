@@ -6,25 +6,43 @@
 </style>
 
 
-<h1>Main dashboard</h1>
 
+<h1><%= image_tag "image.jpg" %> Music We Love</h1>
+<h2>Welcome <%=session[:firstname] %></h2>
 <div class="container">
     <div class="row">
         <div class = "col">
         <form action="/friends/create" method="post">
             <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
         </form>
-
         <h3>Friends</h3>
         <table>
             <thead>
                 <td>Names:</td>
             </thead>
             <tbody>
+            <% @friends.each do |friend| %>
+                <tr>
+                    <td><a href="/users/<%= friend.id%>"><%=friend.first_name%> <%=friend.last_name%></a></td>
 
+                </tr>
+            <% end %>
             </tbody>
 
         </table>
+        <br>
+        <br>
+        <h4>Find friends</h4>
+        <form action="/find_friend" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"> 
+        <input type="text" name="name">
+        <input type="submit" value="Find">
+        </form>
+
+        <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+        <% end %>
+
 
         <br>
         <br>

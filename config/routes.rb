@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/concerts/index' => 'concerts#index'
   get '/'  => 'sessions#index'
 
   post '/users/create'  => 'users#create'
@@ -7,10 +8,14 @@ Rails.application.routes.draw do
   get '/dashboard'  => 'users#show_dashboard'
 
   get '/friends/create' => 'friends#create'
+  get '/users/:id' => 'users#show'
   delete '/friends/:id' => 'friends#destroy'
   post '/friends/:id' => 'friends#create'
-
+  get '/dashboard'  => 'users#show_dashboard'
+  post '/find_friend'  => 'users#find_friend'
+  
   post '/bands/new' => 'bands#new'
+  get '/bands/new' => 'bands#new'
   get '/bands' => 'bands#index'
   get '/bands/:id' => 'bands#show'
   post '/bands/:id/wish' => 'wish#create'
