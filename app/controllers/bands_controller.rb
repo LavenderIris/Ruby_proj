@@ -5,14 +5,25 @@ class BandsController < ApplicationController
     end
 
     def new
-        @searchIn = params.require("band").permit("search")
-        @searchIn = @searchIn["search"]
-        # @response = HTTParty.get("https://ws.audioscrobbler.com/2.0/", :query => {:method => "artist.getTopTags", :artist => @searchIn, :api_key => "ba268e660cd43a240846b8eec02b92f9", :format => "json"})
-        # @similars = JSON.parse(@response.body)
-        @response = HTTParty.get("https://ws.audioscrobbler.com/2.0/", :query => {:method => "tag.gettopartists", :tag => "indie", :api_key => "ba268e660cd43a240846b8eec02b92f9", :format => "json"})
+        @response = HTTParty.get("https://ws.audioscrobbler.com/2.0/", :query => {:method => "artist.search", :artist => params[:band], :limit => "1", :api_key => "ba268e660cd43a240846b8eec02b92f9", :format => "json"})
+
+        @band = Band.new(name:params[:band],mb_id:@response["results"]["artistmatches"]["artist"][0]["mbid"])
+
+        @response = HTTParty.get("https://ws.audioscrobbler.com/2.0/", :query => {:method => "artist.gettags", :mbid => @band["mb_id"], :api_key => "ba268e660cd43a240846b8eec02b92f9", :format => "json"})
+
+        @tag = @response["tags"]["tag"][0]["name"]
+        @band["tag"] = @tag
+
+        @response = HTTParty.get("https://ws.audioscrobbler.com/2.0/", :query => {:method => "tag.gettopartists", :tag => @band["tag"], :api_key => "ba268e660cd43a240846b8eec02b92f9", :format => "json"})
+
         @similars = JSON.parse(@response.body)
-        binding.pry
-        puts @similars
+        @band["similar"] = @similars
+
+        if @band.save
+            redirect_to '/bands'
+        else
+            flash[:errors] = ["Oops, something went wrong"]
+            redirect_to '/bands'
+        end
     end
-    # @response = HTTParty.get("https://ws.audioscrobbler.com/2.0/", :query => { :method => "artist.getsimilar", :artist => "madonna", :api_key => "ba268e660cd43a240846b8eec02b92f9", :limit => "5", :format => "json"})
 end

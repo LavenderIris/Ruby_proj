@@ -1,103 +1,39 @@
-<<<<<<< HEAD
-<style>
-    .table {
-        width: auto;
-    }
-</style>
 
-<div class = "container" >
-    <div class = "row" >
-        <div class = "col-md-6" >
-
-<h3><%= @bandname %></h3>
-<h4>Venue Name: <%= @venuename %></h4>
-<h4>Location: <%= @venuelocation %></h4>
-<h4>State: <%= @venuestate %></h4>
-<h4>Date: <%= @eventdate %></h4>
-
-<table class="table">
-    <col width="400">
-    <thead class="thead-inverse">
-      <tr>
-        <th>Songs</th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @songlist.each do |s| %>
-        <% s["song"].each do |s2| %>
-        <tr>
-            <td class="songclick"><%=s2["name"]%></td>
-        </tr>
-        <% end %>
-    <% end %>
-    </tbody>
-
-</table>
-
-</div>
-
-<div class = "col-md-6">
-
-    <body onload="initialize(), codeAddress()">
-    <div id="map" style="width: 320px; height: 480px;"></div>
-
-
-        <script>
-        var geocoder;
-        var map;
-        function initialize() {
-        geocoder = new google.maps.Geocoder();
-        //coords in LatLng() is where the map will center to when initialized 
-        var latlng = new google.maps.LatLng(<%= @lat %>, <%= @longitude %>);
-        var mapOptions = {
-        zoom: 10,
-        center: latlng
-        }
-        map = new google.maps.Map(document.getElementById('map'), mapOptions);
-        }
-
-        //array of coords to render as markers
-        var locations = [{lat:<%= @lat %>, lng:<%= @longitude %>}]
-        //iterate through each coord pair and create a marker on the map
-        function codeAddress(){
-        for (var i=0;i<locations.length;i++){
-        geocoder.geocode( { 'latLng': locations[i]}, function(results, status) {
-        if (status == 'OK') {
-            var marker = new google.maps.Marker({
-                map: map,
-                position: results[0].geometry.location
-            });
-        } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-        }
-        });
-        }
-        }
-
-        //api key
-        </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZlytKX1vyVfQi2Lw-1Zfuu1xKKFho68o&libraries=places&callback=initAutocomplete"
-        async defer></script>
-        </div>
-    </div>
-
-
-
-
-
-
-</div> 
-
-=======
 <% if @bands %>
     <% @bands.each do |b| %>
         <a href="/bands/<%= b.id %>/"><%= b.name %></a>
     <% end %>
 <% end %>
->>>>>>> e36dda2794e1dca0e595e61159a70a129023c1b8
 
-<form action="/bands/new" method="post">
-    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-    <input id="searchName" type="text" name="band[search]" value="Enter a band name">
-    <input type="submit" name="" value="Search">
-</form>
+
+<% if flash[:errors] %>
+    <% flash[:errors].each do |f| %>
+        <p> <%= f %> </p>
+    <% end %>
+<% end %>
+<input id="searchName" type="text" name="band" value="Enter a band name">
+<button id="bandsearch" type="button" name="button">Search</button>
+
+<div id="band_results">
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(
+        $('#bandsearch').click(function(){
+            var search_term = document.getElementById('searchName').value
+            $.ajaxSetup({headers:{}})
+            $.get('https://ws.audioscrobbler.com/2.0/?method=artist.search&artist=' +search_term+'&api_key=ba268e660cd43a240846b8eec02b92f9&limit=5&format=json',function(res){
+                var artists = res["results"]["artistmatches"]["artist"]
+                var html_str = ''
+                for (x = 0; x < artists.length; x++){
+                    var names = artists[x]["name"]
+                    html_str += "<form action='/bands/new' method='post'><input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>"
+                    html_str += "<input name='band' type='submit' value='"+String(artists[x]["name"])+"'>"
+                    html_str += '<br>'
+                }
+                $('#band_results').html(html_str)
+            })
+        })
+    )
+</script>
