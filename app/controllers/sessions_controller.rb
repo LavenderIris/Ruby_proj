@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
+
   def index
   end
-
 
   def login
     user = User.find_by_email(params[:email]).try(:authenticate, params[:password])
@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       session[:city] = user.city
       session[:email] = user.email
       redirect_to '/dashboard'
-    else 
+    else
       flash[:login_error]= "user not found and/or password doesn't match"
       redirect_to ''
     end

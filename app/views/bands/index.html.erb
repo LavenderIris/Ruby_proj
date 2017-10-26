@@ -6,12 +6,6 @@
     <% end %>
 <% end %>
 
-<h3><%= @bandname %></h3>
-<h4>Venue Name: <%= @venuename %></h4>
-<h4>Location: <%= @venuelocation %></h4>
-<h4>State: <%= @venuestate %></h4>
-<h4>Date: <%= @eventdate %></h4>
-
 <% if flash[:errors] %>
     <% flash[:errors].each do |f| %>
         <p> <%= f %> </p>
