@@ -5,42 +5,43 @@
     <div class="row">
         <div class="col-8">
             <h1> <%= @band.name %> </h1>
+            <% if @band.user_wishes.include?(current_user) %>
+                <a role="button" class="btn" href="/bands/<%=@band.id%>/wish" data-method="delete">Remove from wishlist</a>
+            <% else %>
+                <a class="btn" href="/bands/<%=@band.id%>/wish" data-method="post">Add to wishlist</a>
+            <% end %>
         </div>
         <div class="col-4">
-            <% if @band.user_wishes.include?(current_user) %>
-                <a role="button" class="btn btn-custom" href="/bands/<%=@band.id%>/wish" data-method="delete">Remove from wishlist</a>
-            <% else %>
-                <a href="/bands/<%=@band.id%>/wish" data-method="post">Add to wishlist</a>
-            <% end %>
+            <div class="row">
+                <h2>Similar Artists</h2>
+            </div>
+            <div class="row">
+                <ul>
+                    <% @similar.each do |sim| %>
+                        <li>
+                            <form action="/bands/new" method="post">
+                                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                                <input class="btn-link" type="submit" name="band" value="<%= sim["name"] %>">
+                            </form>
+                        </li>
+                    <% end %>
+                </ul>
+            </div>
         </div>
     </div>
 
     <div class="row">
-        <h2>Similar Artists</h2>
-    </div>
-    <div class="row">
-        <ul>
-            <% @similar.each do |sim| %>
-                <li>
-                    <form action="/bands/new" method="post">
-                        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-                        <input class="btn-link" type="submit" name="band" value="<%= sim["name"] %>">
-                    </form>
-                </li>
-            <% end %>
-        </ul>
-    </div>
-    <div class="row">
+        <div class="col-8">
         <h2>Concerts</h2>
-    </div>
-    <div class="row">
-        <ul>
-            <% if @concerts %>
-                <% @concerts.each do |c| %>
-                    <li><a class="btn btn-link" href="/concerts/<%=c.id%>">c.name</a></li>
+        <div class="row">
+            <ul>
+                <% if @concerts %>
+                    <% @concerts.each do |c| %>
+                        <li><a class="btn btn-link" href="/concerts/<%=c.id%>">c.name</a></li>
+                    <% end %>
                 <% end %>
-            <% end %>
-        </ul>
+            </ul>
+        </div>
     </div>
-
+</div>
 </div>
