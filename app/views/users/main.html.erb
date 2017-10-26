@@ -98,10 +98,12 @@
                     <td>Names:</td>
                 </thead>
                 <tbody>
-                <% @wish.each do |w| %>
-                    <tr>
-                        <td><a href="/bands/<%= w.id %>"><%=w.name%></a></td>
-                    </tr>
+                <% if @wish %>
+                    <% @wish.each do |w| %>
+                        <tr>
+                            <td><a href="/bands/<%= w.id %>"><%=w.name%></a></td>
+                        </tr>
+                    <% end %>
                 <% end %>
                 </tbody>
             </table>
