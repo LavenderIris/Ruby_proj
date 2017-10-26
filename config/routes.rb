@@ -13,20 +13,16 @@ Rails.application.routes.draw do
 
   post '/bands/new' => 'bands#new'
   get '/bands/new' => 'bands#new'
-  get '/concerts' => 'concerts#index'
-  post '/concerts' => 'concerts#index'
   
   get '/bands' => 'bands#index'
   get '/bands/:id' => 'bands#show'
   post '/bands/:id/wish' => 'wish#create'
 
   get '/concerts/index' => 'concerts#index'
-<<<<<<< HEAD
   get '/concerts/new' => 'concerts#new'
-  post '/concerts' => 'concerts#create'
-=======
+  post '/concerts' => 'concerts#index'
+  post '/concerts/new' => 'concerts#create'
   get '/concerts' => 'concerts#index'
->>>>>>> 1da6b40470c09df30adb5cc4ecc517b10597f8c7
   get '/main'  => "concerts#index"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
