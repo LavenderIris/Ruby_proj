@@ -11,7 +11,7 @@
         <li>
             <form action="/bands/new" method="post">
                 <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-                <input type="submit" name="band" value="<%= sim.name %>">
+                <input type="submit" name="band" value="<%= sim["name"] %>">
             </form>
         </li>
     <% end %>
