@@ -26,23 +26,23 @@ fieldset.scheduler-border {
             <h1>Add a recent concert</h1>
         <div class = "row">
             <div class ="col-sm-6">
-            
+
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border"> <h3>Add Concert</h3> </legend>
 
-                <form action="/concerts/new" method="post">
+                <form action="/concerts" method="post">
                     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
                     Date: <input type="date" name="date"> <br>
                     Venue: <input type="text" name="venue"> <br>
                     City: <input type="text" name="city"> <br>
                     State: <input type="text" name="state"><br>
                     Band: <input type="text" name="band"> <br>
-                    
+
                     <input type="submit" value="Add Concert">
                 </form>
-            
 
-                
+
+
             </fieldset>
             </div>
         </div>

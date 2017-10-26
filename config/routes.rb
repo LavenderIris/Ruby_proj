@@ -20,7 +20,8 @@ Rails.application.routes.draw do
   get '/bands/:id' => 'bands#show'
   post '/bands/:id/wish' => 'wish#create'
 
-  post '/concerts' => 'concerts#index'
+  post '/concerts' => 'concerts#create'
+  post '/concerts/index' => 'concerts#index'
   get '/concerts/index' => 'concerts#index'
   get '/concerts' => 'concerts#index'
   get '/main'  => "concerts#index"

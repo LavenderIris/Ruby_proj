@@ -8,6 +8,8 @@ class ConcertsController < ApplicationController
         date = tempdate[2]+'-'+tempdate[1]+'-2017'
 
         response = HTTParty.get("https://api.setlist.fm/rest/1.0/search/setlists",:query => { :artistName => artist, :cityName => cityname , :date => date },:headers => { "x-api-key" => "1128bdd4-2942-4334-b4fa-5cf725b57260","Accept" => "application/json" })
+        puts response.body
+
 
         if response["code"].eql? 404
             @concert = Concert.find_by(band:Band.find_by(name:params[:artist]), city:params[:city], date:params[:date])

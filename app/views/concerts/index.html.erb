@@ -6,7 +6,7 @@
 
 <form action="/concert_attended" method="post">
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-    <input type="hidden" name="date" value="<%=@eventdate%>"> 
+    <input type="hidden" name="date" value="<%=@eventdate%>">
     <input type="hidden" name="venue" value="<%=@venuename%>">
     <input type="hidden" name="city" value="<%=@venuecity%>">
     <input type="hidden" name="state" value="<%=@venuestate%>">
@@ -154,15 +154,3 @@
 
 </div>
 </div>
-
-<% if @bands %>
-    <% @bands.each do |b| %>
-        <a href="/bands/<%= b.id %>/"><%= b.name %></a>
-    <% end %>
-<% end %>
-
-<form action="/bands/new" method="post">
-    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-    <input id="searchName" type="text" name="band[search]" value="Enter a band name">
-    <input type="submit" name="" value="Search">
-</form>
