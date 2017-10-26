@@ -10,8 +10,15 @@ class ConcertsController < ApplicationController
         response = HTTParty.get("https://api.setlist.fm/rest/1.0/search/setlists",:query => { :artistName => artist, :cityName => cityname , :date => date },:headers => { "x-api-key" => "1128bdd4-2942-4334-b4fa-5cf725b57260","Accept" => "application/json" })
 
         if response["code"].eql? 404
-            flash[:error] = "Event not found"
-            redirect_to '/dashboard'
+            @concert = Concert.find_by(band:Band.find_by(name:params[:artist]), city:params[:city], date:params[:date])
+            if @concert
+                @concert
+                render 'info.html.erb'
+            else
+                redirect_to '/concerts/new'
+            end
+            # flash[:error] = "Event not found"
+            # redirect_to '/dashboard'
         else
             testvar = JSON.parse(response.body)
 
