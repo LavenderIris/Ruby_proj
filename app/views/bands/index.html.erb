@@ -1,142 +1,60 @@
 <style>
-    .table {
-        width: auto;
+    ul{
+        list-style: none;
+    }
+    .btn{
+        background-color: #21B4B1;
+        outline-color: none;
+        color: white;
     }
 </style>
 
 <a href="/dashboard">Return to Dashboard</a>
 
-<div class = "container" >
-    <div class = "row" >
-        <div class = "col-md-6" >
-
-<h3><%= @bandname %></h3>
-<h4>Venue Name: <%= @venuename %></h4>
-<h4>Location: <%= @venuelocation %></h4>
-<h4>State: <%= @venuestate %></h4>
-<h4>Date: <%= @eventdate %></h4>
-
-<table class="table">
-    <col width="400">
-    <thead class="thead-inverse">
-      <tr>
-        <th>Songs</th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @songlist.each do |s| %>
-        <% s["song"].each do |s2| %>
-        <tr>
-            <td><div onclick="getLyrics(this.id, this.class)" id='<%=s2["name"]%>' class='<%=@bandname%>'><%=s2["name"]%></div></td>
-        </tr>
+<div class="container">
+    <div class="row">
+        <h1>Bands</h1>
+    </div>
+    <div class="row">
+        <% if flash[:errors] %>
+            <% flash[:errors].each do |f| %>
+                <p> <%= f %> </p>
+            <% end %>
         <% end %>
-    <% end %>
-    </tbody>
+        <div class="col-8">
+            <input id="searchName" type="text" name="band" value="Enter a band name">
+            <button class="btn" id="bandsearch" type="button" name="button">Search</button>
+        </div>
+        <div class="col-4">
+            <div id="band_results">
 
-</table>
-
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <% if @bands %>
+            <ul>
+            <% @bands.each do |b| %>
+                <li class="band_list"><a href="/bands/<%= b.id %>/"><%= b.name %></a></li>
+            <% end %>
+            </ul>
+        <% end %>
+    </div>
 </div>
 
-<div class = "col-md-6">
-
-    <body onload="initialize(), codeAddress()">
-    <div id="map" style="width: 320px; height: 480px;"></div>
-
-
-        <script>
-        var geocoder;
-        var map;
-        function initialize() {
-        geocoder = new google.maps.Geocoder();
-        //coords in LatLng() is where the map will center to when initialized 
-        var latlng = new google.maps.LatLng(<%= @lat %>, <%= @longitude %>);
-        var mapOptions = {
-        zoom: 10,
-        center: latlng
-        }
-        map = new google.maps.Map(document.getElementById('map'), mapOptions);
-        }
-
-        //array of coords to render as markers
-        var locations = [{lat:<%= @lat %>, lng:<%= @longitude %>}]
-        //iterate through each coord pair and create a marker on the map
-        function codeAddress(){
-        for (var i=0;i<locations.length;i++){
-        geocoder.geocode( { 'latLng': locations[i]}, function(results, status) {
-        if (status == 'OK') {
-            var marker = new google.maps.Marker({
-                map: map,
-                position: results[0].geometry.location
-            });
-        } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-        }
-        });
-        }
-        }
-
-        //api key
-        </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZlytKX1vyVfQi2Lw-1Zfuu1xKKFho68o&libraries=places&callback=initAutocomplete"
-        async defer></script>
-
-
-        <div class = "col" id = "lyrics" >
-            <script type="text/javascript">
-                function getLyrics(song, band) {
-                    console.log(band)
-                    //this callback contains another query to get lyrics after we've retried the song id
-                    this.jsonp_callback = function(data){
-                        $.ajax({
-                            type: "GET",
-                            data: {
-                                apikey:"f3852752b58ca26b3340a0ae930e9086",
-                                format:"jsonp",
-                                callback:"jsonp_callback_lyrics"
-                            },
-                            url: "http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=" + data["message"]["body"]["track_list"][0]["track"]["track_id"],
-                            dataType: "jsonp",
-                            jsonpCallback: 'jsonp_callback_lyrics',
-                            contentType: 'application/json'
-                        });
-                    };
-                    
-
-                    //this callback adds lyrics to the #lyrics div
-                    this.jsonp_callback_lyrics = function(data){
-                        var lyrics = data["message"]["body"]["lyrics"]["lyrics_body"]
-                        var string = "<p>"
-
-                        for (var i=0; i<lyrics.length - 69; i++){
-                            string += lyrics[i]
-                            if (lyrics[i+1] == "\n" && lyrics[i+2] == "\n"){
-                                string += "</p><p>"
-                            }
-
-                        }
-                        string += "</p>"
-
-                        console.log(string)
-                        $("#lyrics").html(string);
-                    };
-
-
-                    //this finds the song's id using just the name of the song
-                    $.ajax({
-                    type: "GET",
-                    data: {
-                        apikey:"f3852752b58ca26b3340a0ae930e9086",
-                        q_track:song,
-                        q_artist:band,
-                        format:"jsonp",
-                        callback:"jsonp_callback"
-                    },
-                    url: "http://api.musixmatch.com/ws/1.1/track.search",
-                    dataType: "jsonp",
-                    jsonpCallback: 'jsonp_callback',
-                    contentType: 'application/json'
-                    });
-
+<script type="text/javascript">
+    $(document).ready(
+        $('#bandsearch').click(function(){
+            var search_term = document.getElementById('searchName').value
+            $.ajaxSetup({headers:{}})
+            $.get('https://ws.audioscrobbler.com/2.0/?method=artist.search&artist=' +search_term+'&api_key=ba268e660cd43a240846b8eec02b92f9&limit=5&format=json',function(res){
+                var artists = res["results"]["artistmatches"]["artist"]
+                var html_str = '<h1>Search Results</h1>'
+                for (x = 0; x < artists.length; x++){
+                    var names = artists[x]["name"]
+                    html_str += "<form action='/bands/new' method='post'><input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>"
+                    html_str += "<input class='btn-link' name='band' type='submit' value='"+String(artists[x]["name"])+"'>"
+                    html_str += '<br>'
                 }
             </script>
         </div>

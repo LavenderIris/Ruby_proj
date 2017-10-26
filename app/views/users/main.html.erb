@@ -6,8 +6,12 @@
 </style>
 
 
+<<<<<<< HEAD
 
 
+=======
+<h2>Welcome <%=session[:firstname] %></h2>
+>>>>>>> d9985e796cf5035375ba904bd9667f17b29dca23
 <div class="container">
     <h1><%= image_tag "image.jpg" %> Music We Love</h1>
     <h2>Welcome <%=session[:firstname] %></h2>
@@ -64,7 +68,7 @@
         <br>
         <h4>Find friends</h4>
         <form action="/find_friend" method="post">
-        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"> 
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
         <input type="text" name="name">
         <input type="submit" value="Find">
         </form>
@@ -74,7 +78,7 @@
         <% end %>
 
 
-        </div>
+
         </div>
     </div>
 </div>
