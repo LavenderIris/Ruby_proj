@@ -53,9 +53,7 @@
 }
 
 .navlinks-box{
-    height: inherit;
-    margin-left: 75%;
-    box-sizing: border-box;
+    vertical-align: middle;
 }
 
 .navlinks{
@@ -68,10 +66,17 @@
 <body>
 <% if current_user %>
 <nav class="navbar1">
-    <div class="navlinks-box">
-        <a class="navlinks" href="/dashboard">Home</a>
-        <a class="navlinks" href="/bands">Bands</a>
-        <a class="navlinks" href="/concerts">Concerts</a>
+    <div class="row">
+        <div class="col-10">
+            <% if current_page?('/dashboard') %>
+                <h2>Welcome <%=session[:firstname] %></h2>
+            <% end %>
+        </div>
+        <div class="navlinks-box col-2">
+            <a class="navlinks" href="/dashboard">Home</a>
+            <a class="navlinks" href="/bands">Bands</a>
+            <a class="navlinks" href="/concerts">Concerts</a>
+        </div>
     </div>
 </nav>
 <% end %>

@@ -1,26 +1,15 @@
 class ConcertsController < ApplicationController
     require 'date'
     def index
-        # artist = "Bruno Mars"
-        # cityname = "Boston"
-        # tempdate = "2017-10-08".split('-')
-        
-        # artist = "Paramore"
-        # cityname = "Oakland"
-        # tempdate = "2017-09-24".split('-')
-
 
         artist = params[:artist]
         cityname = params[:city]
         tempdate = params[:date].split('-')
-
-    
         date = tempdate[2]+'-'+tempdate[1]+'-2017'
-        # response = HTTParty.get("https://api.setlist.fm/rest/1.0/search/setlists",:query => { :artistName => "Coldplay", :cityName => "Santa Clara", :date => "04-10-2017" },:headers => { "x-api-key" => "1128bdd4-2942-4334-b4fa-5cf725b57260","Accept" => "application/json" })
+
         response = HTTParty.get("https://api.setlist.fm/rest/1.0/search/setlists",:query => { :artistName => artist, :cityName => cityname , :date => date },:headers => { "x-api-key" => "1128bdd4-2942-4334-b4fa-5cf725b57260","Accept" => "application/json" })
-       
-        # binding.pry
-        if response["code"].eql? 404 
+
+        if response["code"].eql? 404
             flash[:error] = "Event not found"
             redirect_to '/dashboard'
         else
@@ -40,6 +29,5 @@ class ConcertsController < ApplicationController
 
             render '/concerts/index.html.erb'
         end
-    
     end
 end

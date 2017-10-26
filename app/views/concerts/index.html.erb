@@ -9,8 +9,6 @@
     <input type="submit" name="" value="Attended Concert">
 </form>
 
-<a href="/dashboard">Return to Dashboard</a>
-
 <div class = "container" >
     <div class = "row" >
         <div class = "col-md-6" >
@@ -53,7 +51,7 @@
         var map;
         function initialize() {
         geocoder = new google.maps.Geocoder();
-        //coords in LatLng() is where the map will center to when initialized 
+        //coords in LatLng() is where the map will center to when initialized
         var latlng = new google.maps.LatLng(<%= @lat %>, <%= @longitude %>);
         var mapOptions = {
         zoom: 10,
@@ -105,7 +103,7 @@
                             contentType: 'application/json'
                         });
                     };
-                    
+
 
                     //this callback adds lyrics to the #lyrics div
                     this.jsonp_callback_lyrics = function(data){
@@ -149,7 +147,7 @@
     </div>
 
 
-</div> 
+</div>
 </div>
 
 <% if @bands %>

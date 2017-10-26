@@ -9,8 +9,6 @@
     }
 </style>
 
-<a href="/dashboard">Return to Dashboard</a>
-
 <div class="container">
     <div class="row">
         <h1>Bands</h1>
@@ -24,21 +22,19 @@
         <div class="col-8">
             <input id="searchName" type="text" name="band" value="Enter a band name">
             <button class="btn" id="bandsearch" type="button" name="button">Search</button>
+            <% if @bands %>
+                <ul>
+                <% @bands.each do |b| %>
+                    <li class="band_list"><a href="/bands/<%= b.id %>/"><%= b.name %></a></li>
+                <% end %>
+                </ul>
+            <% end %>
         </div>
         <div class="col-4">
             <div id="band_results">
 
             </div>
         </div>
-    </div>
-    <div class="row">
-        <% if @bands %>
-            <ul>
-            <% @bands.each do |b| %>
-                <li class="band_list"><a href="/bands/<%= b.id %>/"><%= b.name %></a></li>
-            <% end %>
-            </ul>
-        <% end %>
     </div>
 </div>
 
@@ -56,23 +52,8 @@
                     html_str += "<input class='btn-link' name='band' type='submit' value='"+String(artists[x]["name"])+"'>"
                     html_str += '<br>'
                 }
-            </script>
-        </div>
-
-    </div>
-
-
-</div> 
-</div>
-
-<% if @bands %>
-    <% @bands.each do |b| %>
-        <a href="/bands/<%= b.id %>/"><%= b.name %></a>
-    <% end %>
-<% end %>
-
-<form action="/bands/new" method="post">
-    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-    <input id="searchName" type="text" name="band[search]" value="Enter a band name">
-    <input type="submit" name="" value="Search">
-</form>
+                $('#band_results').html(html_str)
+            })
+        })
+    )
+</script>

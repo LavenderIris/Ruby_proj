@@ -3,39 +3,48 @@
         width: auto;
         display: block;
     }
+
+    label{
+        align-items: right;
+    }
+
+    .form-group{
+        width: 70%;
+    }
+
+    .btn{
+        background-color: #21B4B1;
+        outline-color: none;
+        color: white;
+    }
 </style>
 
-
-<<<<<<< HEAD
-
-
-=======
-<h2>Welcome <%=session[:firstname] %></h2>
->>>>>>> d9985e796cf5035375ba904bd9667f17b29dca23
 <div class="container">
-    <h1><%= image_tag "image.jpg" %> Music We Love</h1>
     <h2>Welcome <%=session[:firstname] %></h2>
-    <br>
-
     <div class="row">
-        <div class = "col">
-        <form action="/friends/create" method="post">
-            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-        </form>
+    <br>
+    <div class = "col-8">
+        <div class="col">
+            <form action="/concerts" method="post">
+                <h3>Find shows</h3>
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                <div class="form-group">
+                    <label for="date">Date:</label> <input class="form-control" type="date" name="date"><br>
+                </div>
+                <div class="form-group">
+                    <label for="artist">Artist:</label> <input class="form-control" type="text" name="artist"><br>
+                </div>
+                <div class="form-group">
+                    <label for="city">City:</label> <input class="form-control" type="text" name="city"><br>
+                </div>
+                <div class="form-group">
+                    <input class="btn" type="submit" value="Find">
+                </div>
+            </form>
+        </div>
 
+        <h3>Past Shows Attended</h3>
 
-        <h4>Find shows</h4>
-        <form action="/concerts" method="post">
-        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"> 
-        Date:<input type="date" name="date"><br>
-        Artist:<input type="text" name="artist"><br>
-        City:<input type="text" name="city"><br>
-        
-        <input type="submit" value="Find">
-        </form>
-
-        <h3>past shows attended</h3>
-        
         <table>
             <thead>
                 <td>Show details:</td>
@@ -45,9 +54,9 @@
             </tbody>
 
         </table>
-      
-        <br><br>
+    </div>
 
+    <div class="col-4">
 
         <h3>Friends</h3>
         <table>
@@ -65,20 +74,25 @@
 
         </table>
         <br>
-        <br>
-        <h4>Find friends</h4>
-        <form action="/find_friend" method="post">
-        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-        <input type="text" name="name">
-        <input type="submit" value="Find">
-        </form>
-
-        <% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %>"><%= value %></div>
-        <% end %>
-
-
-
+            <div class="col">
+                <h4>Find friends</h4>
+                <form action="/find_friend" method="post">
+                    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                    <div class="form-group">
+                        <input type="text" name="name">
+                    </div>
+                    <div class="form-group">
+                        <input class="btn" type="submit" value="Find">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+
+    <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
+
+    </div>
+
 </div>
