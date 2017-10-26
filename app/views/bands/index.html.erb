@@ -7,6 +7,11 @@
         outline-color: none;
         color: white;
     }
+    .list-group-item{
+        border: none;
+        font-size: 1.33rem;
+        line-height: 1;
+    }
 </style>
 
 <div class="container">
@@ -20,17 +25,17 @@
             <% end %>
         <% end %>
         <div class="col-8">
-            <input id="searchName" type="text" name="band" value="Enter a band name">
-            <button class="btn" id="bandsearch" type="button" name="button">Search</button>
             <% if @bands %>
-                <ul>
+                <ul class="list-group">
                 <% @bands.each do |b| %>
-                    <li class="band_list"><a href="/bands/<%= b.id %>/"><%= b.name %></a></li>
+                    <li class="band_list list-group-item"><a href="/bands/<%= b.id %>/"><%= b.name %></a></li>
                 <% end %>
                 </ul>
             <% end %>
         </div>
         <div class="col-4">
+            <input class="form-control form-control-sm" id="searchName" type="text" name="band" value="Enter a band name"><br>
+            <button class="btn" id="bandsearch" type="button" name="button">Search</button>
             <div id="band_results">
 
             </div>

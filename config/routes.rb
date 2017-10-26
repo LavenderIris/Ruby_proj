@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get '/'  => 'sessions#index'
   delete '/session' => 'sessions#index'
+  get '/session' => 'sessions#index'
 
   post '/users/create'  => 'users#create'
   post '/users/login'  => 'sessions#login'
@@ -14,13 +15,12 @@ Rails.application.routes.draw do
 
   post '/bands/new' => 'bands#new'
   get '/bands/new' => 'bands#new'
-  get '/concerts' => 'concerts#index'
-  post '/concerts' => 'concerts#index'
-  
+
   get '/bands' => 'bands#index'
   get '/bands/:id' => 'bands#show'
   post '/bands/:id/wish' => 'wish#create'
 
+  post '/concerts' => 'concerts#index'
   get '/concerts/index' => 'concerts#index'
   get '/concerts' => 'concerts#index'
   get '/main'  => "concerts#index"

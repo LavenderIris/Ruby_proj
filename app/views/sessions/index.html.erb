@@ -21,6 +21,16 @@
                     -webkit-box-shadow:  0px 0px 0px 0px #000;
                     box-shadow:  0px 0px 0px 0px #000;
                 }
+
+                .form-group{
+                    margin-bottom: 0rem;
+                }
+
+                .btn{
+                    background-color: #21B4B1;
+                    outline-color: none;
+                    color: white;
+                }
             </style>
         </head>
         <body>
@@ -34,14 +44,25 @@
 
                         <form action="/users/create" method="post">
                             <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-                            First Name: <input type="text" name="user[first_name]" id="firstname" class="form"> <br>
-                            Last Name: <input type="text" name="user[last_name]" id="lastname" class="form"> <br>
-                            Email: <input type="text" name="user[email]" id="email" class="form"> <br>
-                            City: <input type="text" name="user[city]" id="city" class="form"><br>
-                            State: <input type="text" name="user[state]" id="state" class="form"><br>
-                            Password: <input type="password" name="user[password]" id="password" class="form"> <br>
-
-                            <input type="submit" value="Register">
+                            <div class="form-group">
+                                <label for="user[first_name]">First Name:</label> <input class="form-control form-control-sm" type="text" name="user[first_name]" id="firstname"> <br>
+                            </div>
+                            <div class="form-group">
+                                <label for="user[last_name]">Last Name:</label> <input class="form-control form-control-sm" type="text" name="user[last_name]" id="lastname"> <br>
+                            </div>
+                            <div class="form-group">
+                                <label for="user[email]">Email:</label> <input class="form-control form-control-sm" type="text" name="user[email]" id="email"> <br>
+                            </div>
+                            <div class="form-group">
+                                <label for="user[city]">City:</label> <input class="form-control form-control-sm" type="text" name="user[city]" id="city"><br>
+                            </div>
+                            <div class="form-group">
+                                <label for="user[state]">State:</label> <input class="form-control form-control-sm" type="text" name="user[state]" id="state"><br>
+                            </div>
+                            <div class="form-group">
+                                <label for="user[password]">Password:</label> <input class="form-control form-control-sm" type="password" name="user[password]" id="password"> <br>
+                            </div>
+                            <input class="btn" type="submit" value="Register">
                         </form>
 
 
@@ -54,10 +75,15 @@
                             <legend  class="scheduler-border"
                             ><h3>Login</h3></legend>
                             <form action="/users/login" method="post">
+
                                 <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-                                Email: <input type="text" name="email" id="email" class="form"> <br>
-                                Password: <input type="password" name="password" id="password" class="form"> <br>
-                                <input type="submit" value="Login">
+                                <div class="form-group">
+                                    <label for="email">Email:</label> <input class="form-control form-control-sm" type="text" name="email" id="email" class="form"> <br>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password:</label> <input class="form-control form-control-sm" type="password" name="password" id="password" class="form"> <br>
+                                </div>
+                                <input class='btn' type="submit" value="Login">
                             </form>
                         </fieldset>
 
