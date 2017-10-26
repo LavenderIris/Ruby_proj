@@ -23,12 +23,11 @@ class UsersController < ApplicationController
 
     def show_dashboard
         @friends = User.find(session[:id]).friends
-
+        @wish = current_user.band_wishes
         render '/users/main.html.erb'
     end
 
     def find_friend
-
         fn = ""
         ln = ""
         str = params[:name].split(" ")
@@ -39,9 +38,7 @@ class UsersController < ApplicationController
             fn = str[0]
             ln = str[str.length-1]
         end
-
         @friend = User.find_by_first_name_and_last_name(fn, ln)
-
 
         if @friend.nil?
             flash[:error] = "User not found"
