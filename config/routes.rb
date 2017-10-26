@@ -25,5 +25,8 @@ Rails.application.routes.draw do
   get '/concerts' => 'concerts#index'
   get '/main'  => "concerts#index"
 
+  post '/concert_attended' => 'concerts#attended'
+  get '/concerts/all' => 'concerts#all'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

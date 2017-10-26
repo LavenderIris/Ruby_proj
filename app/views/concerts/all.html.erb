@@ -1,0 +1,8 @@
+<% for concert in @concerts %>
+    Date: <%= concert.date %> <br> 
+    Venue: <%= concert.venue %> <br> 
+    City: <%= concert.city %> <br> 
+    State: <%= concert.state %> <br> 
+    Band: <%= concert.band.name %> <br> 
+    ------------------------------ <br>
+<% end %>

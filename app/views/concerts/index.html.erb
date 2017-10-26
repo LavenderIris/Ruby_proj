@@ -6,7 +6,12 @@
 
 <form action="/concert_attended" method="post">
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-    <input type="submit" name="" value="Attended Concert">
+    <input type="hidden" name="date" value="<%=@eventdate%>"> 
+    <input type="hidden" name="venue" value="<%=@venuename%>">
+    <input type="hidden" name="city" value="<%=@venuecity%>">
+    <input type="hidden" name="state" value="<%=@venuestate%>">
+    <input type="hidden" name="band" value="<%=@bandname%>">
+    <input type="submit" value="Attended Concert">
 </form>
 
 <div class = "container" >
@@ -15,7 +20,7 @@
 
 <h3><%= @bandname %></h3>
 <h4>Venue Name: <%= @venuename %></h4>
-<h4>Location: <%= @venuelocation %></h4>
+<h4>Location: <%= @venuecity %></h4>
 <h4>State: <%= @venuestate %></h4>
 <h4>Date: <%= @eventdate %></h4>
 

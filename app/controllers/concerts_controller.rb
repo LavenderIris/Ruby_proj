@@ -19,9 +19,8 @@ class ConcertsController < ApplicationController
             @lat = testvar["setlist"][0]["venue"]["city"]["coords"]["lat"]
             @songlist = testvar["setlist"][0]["sets"]["set"]
             @bandname = testvar["setlist"][0]["artist"]["name"]
-            @venue = testvar["setlist"][0]["venue"]
             @venuename = testvar["setlist"][0]["venue"]["name"]
-            @venuelocation = testvar["setlist"][0]["venue"]["city"]["name"]
+            @venuecity = testvar["setlist"][0]["venue"]["city"]["name"]
             @venuestate = testvar["setlist"][0]["venue"]["city"]["state"]
             t = testvar["setlist"][0]["eventDate"]
             cdate = Date.strptime(t, "%d-%m-%Y" )
@@ -52,5 +51,27 @@ class ConcertsController < ApplicationController
     end
 
     def show
+    end
+
+    def attended
+        band = Band.new(name:params[:band])
+        if band.valid?
+            band.save
+        else
+            band = Band.find_by(name:params[:band])
+        end
+        concert = Concert.new(date:params[:date], venue:params[:venue], city:params[:city], state:params[:state], band:band, user_id:session[:id])
+        if concert.valid?
+            concert.save
+        else
+            concert = Concert.find_by(date:params[:date], venue:params[:venue], city:params[:city], state:params[:state], band:band)
+        end
+        Attend.create(user_id:session[:id], concert:concert)
+        redirect_to '/dashboard'
+    end
+
+    def all
+        @concerts = Concert.all
+        render 'all.html.erb'
     end
 end
