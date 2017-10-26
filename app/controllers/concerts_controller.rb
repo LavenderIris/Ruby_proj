@@ -22,4 +22,18 @@ class ConcertsController < ApplicationController
     cdate = Date.strptime(t, "%d-%m-%Y" )
     @eventdate = cdate.strftime("%A, %B %d %Y")
     end
+
+    def new
+    end
+
+    def create
+        concert = Concert.new(date:params[:date], venue:params[:venue], city:params[:city], state:params[:state], band:Band.create(name:params[:band]), user_id:session[:id])
+        if concert.valid?
+            concert.save
+            flash[:errors] = ["concert saved successfully"]
+        else
+            flash[:errors] = concert.errors.full_messages
+        end
+        redirect_to '/concerts/new'
+    end
 end

@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   post '/bands/:id/wish' => 'wish#create'
 
   get '/concerts/index' => 'concerts#index'
+  get '/concerts/new' => 'concerts#new'
+  post '/concerts' => 'concerts#create'
   get '/main'  => "concerts#index"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
