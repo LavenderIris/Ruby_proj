@@ -1,8 +1,24 @@
 <% for concert in @concerts %>
-    Date: <%= concert.date %> <br> 
-    Venue: <%= concert.venue %> <br> 
-    City: <%= concert.city %> <br> 
-    State: <%= concert.state %> <br> 
-    Band: <%= concert.band.name %> <br> 
-    ------------------------------ <br>
+    <div>
+        Date: <%= concert.date %> <br> 
+        Venue: <%= concert.venue %> <br> 
+        City: <%= concert.city %> <br> 
+        State: <%= concert.state %> <br> 
+        Band: <%= concert.band.name %> <br> 
+        ------------------------------- <br>
+        <form action="/concerts" method="post" id="form">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"> 
+            <input type="hidden" name="date" value="<%= concert.date %>"><br>
+            <input type="hidden" name="artist" value="<%= concert.band.name %>"><br>
+            <input type="hidden" name="city" value="<%= concert.city %>"><br>
+            <input type="submit">
+        </form>
+    </div>
 <% end %>
+<script>
+var form = document.getElementById("form");
+
+document.getElementById("form").addEventListener("click", function () {
+  form.submit();
+});
+</script>
