@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+    skip_before_action :require_login, only: [:create]
 
     def create
         user = User.new(user_params)
@@ -6,12 +7,12 @@ class UsersController < ApplicationController
             redirect_to '/users/dashboard'
         else
             flash[:errors]=user.errors.full_messages
+            redirect_to '/'
         end
-        redirect_to ''
     end
 
     def main
-        render 'users/main.html.erb'
+        render '/users/main.html.erb'
     end
 
     def show
@@ -23,7 +24,7 @@ class UsersController < ApplicationController
     def show_dashboard
         @friends = User.find(session[:id]).friends
 
-        render 'users/main.html.erb'
+        render '/users/main.html.erb'
     end
 
     def find_friend
