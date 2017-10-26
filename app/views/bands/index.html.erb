@@ -1,9 +1,12 @@
 
+<div class="container">
 
 <% if @bands %>
+    <ul>
     <% @bands.each do |b| %>
-        <a href="/bands/<%= b.id %>/"><%= b.name %></a>
+        <li class="band_list"><a href="/bands/<%= b.id %>/"><%= b.name %></a></li>
     <% end %>
+    </ul>
 <% end %>
 
 <% if flash[:errors] %>
@@ -11,13 +14,16 @@
         <p> <%= f %> </p>
     <% end %>
 <% end %>
-<input id="searchName" type="text" name="band" value="Enter a band name">
-<button id="bandsearch" type="button" name="button">Search</button>
 
-<div id="band_results">
+
+    <input id="searchName" type="text" name="band" value="Enter a band name">
+    <button id="bandsearch" type="button" name="button">Search</button>
+
+    <div id="band_results">
+
+    </div>
 
 </div>
-
 <script type="text/javascript">
     $(document).ready(
         $('#bandsearch').click(function(){
@@ -29,7 +35,7 @@
                 for (x = 0; x < artists.length; x++){
                     var names = artists[x]["name"]
                     html_str += "<form action='/bands/new' method='post'><input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>"
-                    html_str += "<input name='band' type='submit' value='"+String(artists[x]["name"])+"'>"
+                    html_str += "<input class='btn btn-link' name='band' type='submit' value='"+String(artists[x]["name"])+"'>"
                     html_str += '<br>'
                 }
                 $('#band_results').html(html_str)

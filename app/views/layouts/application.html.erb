@@ -5,9 +5,9 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-  
+
 </head>
 
 <style>
@@ -20,7 +20,7 @@
   .spacing {
     margin-left: 5%;
   }
-  
+
   .inline {
       display:inline-block;
   }
@@ -45,13 +45,36 @@
 .c {
   margin-left: 30%;
 }
-  
-</style>  
 
+.navbar1{
+    height: 5%;
+    padding: 1%;
+    background: linear-gradient(#21B4B1,white);
+}
 
+.navlinks-box{
+    height: inherit;
+    margin-left: 75%;
+    box-sizing: border-box;
+}
 
+.navlinks{
+    box-sizing: border-box;
+    margin:5%;
+    color: black;
+}
+
+</style>
 <body>
-
+<% if current_user %>
+<nav class="navbar1">
+    <div class="navlinks-box">
+        <a class="navlinks" href="/dashboard">Home</a>
+        <a class="navlinks" href="/bands">Bands</a>
+        <a class="navlinks" href="/concerts">Concerts</a>
+    </div>
+</nav>
+<% end %>
 
 
 <%= yield %>
