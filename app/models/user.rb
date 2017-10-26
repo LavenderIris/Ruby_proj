@@ -3,11 +3,7 @@ class User < ApplicationRecord
 
     has_many :concerts
     has_many :bands
-<<<<<<< HEAD
-    
-=======
     has_many :wish
->>>>>>> 602af46625632844b566fef81f851bf88414e427
     has_many :concert_attended, through: :attend, source: :concerts
     has_many :band_wishes, through: :wish, source: :band
     has_many :friendships, foreign_key: :user_id, class_name: :Friendship

@@ -23,12 +23,8 @@ class UsersController < ApplicationController
 
     def show_dashboard
         @friends = User.find(session[:id]).friends
-<<<<<<< HEAD
-
-        @concerts_attended = Attend.where(user:current_user)
-=======
         @wish = current_user.band_wishes
->>>>>>> 602af46625632844b566fef81f851bf88414e427
+        @concerts_attended = Attend.where(user:current_user)
         render '/users/main.html.erb'
     end
 
