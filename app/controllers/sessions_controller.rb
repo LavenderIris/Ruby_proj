@@ -14,9 +14,17 @@ class SessionsController < ApplicationController
       redirect_to '/dashboard'
     else
       flash[:login_error]= "user not found and/or password doesn't match"
-      redirect_to ''
+      redirect_to '/'
     end
   end
 
+  def destroy
+      session[:id] = nil
+      session[:firstname] = nil
+      session[:lastname] = nil
+      session[:city] = nil
+      session[:email] = nil
+      redirect_to '/'
+  end
 
 end

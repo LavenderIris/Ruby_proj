@@ -67,15 +67,16 @@
 <% if current_user %>
 <nav class="navbar1">
     <div class="row">
-        <div class="col-10">
+        <div class="col-9">
             <% if current_page?('/dashboard') %>
                 <h2>Welcome <%=session[:firstname] %></h2>
             <% end %>
         </div>
-        <div class="navlinks-box col-2">
+        <div class="navlinks-box col-3">
             <a class="navlinks" href="/dashboard">Home</a>
             <a class="navlinks" href="/bands">Bands</a>
             <a class="navlinks" href="/concerts">Concerts</a>
+            <a class="navlinks" href="/session" data-method='delete'>Logout</a>
         </div>
     </div>
 </nav>
