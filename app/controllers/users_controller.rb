@@ -24,6 +24,7 @@ class UsersController < ApplicationController
     def show_dashboard
         @friends = User.find(session[:id]).friends
 
+        @concerts_attended = Attend.where(user:current_user)
         render '/users/main.html.erb'
     end
 
