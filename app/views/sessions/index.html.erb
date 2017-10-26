@@ -32,26 +32,26 @@
                     <h1>Welcome! </h1>
                 <div class = "row">
                     <div class ="col-sm-6">
-                    
+
                     <fieldset class="scheduler-border">
                         <legend class="scheduler-border"> <h3>Register</h3> </legend>
-    
+
                         <form action="/users/create" method="post">
                             <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-                            First Name: <input type="text" name="user[firstname]" id="firstname"> <br>
-                            Last Name: <input type="text" name="user[lastname]" id="lastname"> <br>
+                            First Name: <input type="text" name="user[first_name]" id="firstname"> <br>
+                            Last Name: <input type="text" name="user[last_name]" id="lastname"> <br>
                             Email: <input type="text" name="user[email]" id="email"> <br>
-                            Location: <input type="text" name="user[location]" id="email"><br>
+                            Location: <input type="text" name="user[city]" id="email"><br>
                             Password: <input type="password" name="user[password]" id="password"> <br>
-                            
+
                             <input type="submit" value="Register">
                         </form>
-                    
-    
-                        
+
+
+
                     </fieldset>
                     </div>
-                    
+
                     <div class ="col-sm-6">
                         <fieldset class="scheduler-border">
                             <legend  class="scheduler-border"
@@ -63,7 +63,7 @@
                                 <input type="submit" value="Login">
                             </form>
                         </fieldset>
-    
+
                     </div>
                 </div>
             </div>

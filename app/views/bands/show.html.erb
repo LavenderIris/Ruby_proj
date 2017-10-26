@@ -1,0 +1,27 @@
+<h1> <%= @band.name %> </h1>
+<% if @band.user_wishes.include?(current_user) %>
+    <a href="/bands/<%=@band.id%>/wish" data-method="delete">Remove from wishlist</a>
+<% else %>
+<a href="/bands/<%=@band.id%>/wish" data-method="post">Add to wishlist</a>
+<% end %>
+
+<h2>Similar Artists</h2>
+<ul>
+    <% @similar.each do |sim| %>
+        <li>
+            <form action="/bands/new" method="post">
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                <input type="submit" name="band" value="<%= sim["name"] %>">
+            </form>
+        </li>
+    <% end %>
+</ul>
+
+<h2>Concerts</h2>
+<ul>
+    <% if @concerts %>
+        <% @concerts.each do |c| %>
+            <li><a href="/concerts/<%=c.id%>">c.name</a></li>
+        <% end %>
+    <% end %>
+</ul>

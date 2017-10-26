@@ -38,7 +38,7 @@ class ConcertsController < ApplicationController
             cdate = Date.strptime(t, "%d-%m-%Y" )
             @eventdate = cdate.strftime("%A, %B %d %Y")
 
-            render '/bands/index.html.erb'
+            render '/concerts/index.html.erb'
         end
     
     end
