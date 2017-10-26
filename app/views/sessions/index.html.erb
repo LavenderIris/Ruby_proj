@@ -34,11 +34,12 @@
 
                         <form action="/users/create" method="post">
                             <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-                            First Name: <input type="text" name="user[first_name]" id="firstname"> <br>
-                            Last Name: <input type="text" name="user[last_name]" id="lastname"> <br>
-                            Email: <input type="text" name="user[email]" id="email"> <br>
-                            Location: <input type="text" name="user[city]" id="email"><br>
-                            Password: <input type="password" name="user[password]" id="password"> <br>
+                            First Name: <input type="text" name="user[first_name]" id="firstname" class="form"> <br>
+                            Last Name: <input type="text" name="user[last_name]" id="lastname" class="form"> <br>
+                            Email: <input type="text" name="user[email]" id="email" class="form"> <br>
+                            City: <input type="text" name="user[city]" id="city" class="form"><br>
+                            State: <input type="text" name="user[state]" id="state" class="form"><br>
+                            Password: <input type="password" name="user[password]" id="password" class="form"> <br>
 
                             <input type="submit" value="Register">
                         </form>
@@ -54,8 +55,8 @@
                             ><h3>Login</h3></legend>
                             <form action="/users/login" method="post">
                                 <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-                                Email: <input type="text" name="email" id="email"> <br>
-                                Password: <input type="password" name="password" id="password"> <br>
+                                Email: <input type="text" name="email" id="email" class="form"> <br>
+                                Password: <input type="password" name="password" id="password" class="form"> <br>
                                 <input type="submit" value="Login">
                             </form>
                         </fieldset>

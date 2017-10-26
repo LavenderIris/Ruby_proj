@@ -44,6 +44,19 @@
 
         <h3>Past Shows Attended</h3>
 
+
+        <h4>Find shows</h4>
+        <form action="/concerts" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"> 
+        Date:<input type="date" name="date"><br>
+        Artist:<input type="text" name="artist"><br>
+        City:<input type="text" name="city"><br>
+        
+        <input type="submit" value="Find">
+        </form>
+
+        <h3>past shows attended</h3>
+        
         <table>
             <thead>
                 <td>Show details:</td>

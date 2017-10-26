@@ -30,4 +30,27 @@ class ConcertsController < ApplicationController
             render '/concerts/index.html.erb'
         end
     end
+
+    def new
+    end
+
+    def create
+        band = Band.new(name:params[:band])
+        if band.valid?
+            band.save
+        else
+            band = Band.find_by(name:params[:band])
+        end
+        concert = Concert.new(date:params[:date], venue:params[:venue], city:params[:city], state:params[:state], band:band, user_id:session[:id])
+        if concert.valid?
+            concert.save
+            flash[:errors] = ["concert saved successfully"]
+        else
+            flash[:errors] = concert.errors.full_messages
+        end
+        redirect_to '/concerts/new'
+    end
+
+    def show
+    end
 end
