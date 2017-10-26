@@ -2,3 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.band_list{
+    list-style: none;
+}
+    ul{
+        list-style: none;
+    }
+    .btn-custom{
+        background-color: #21B4B1;
+        outline-color: none;
+        color: white;
+    }
+
+// .band_links{
+//
+// }

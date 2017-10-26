@@ -6,15 +6,49 @@
 </style>
 
 
+<<<<<<< HEAD
 
-<h1><%= image_tag "image.jpg" %> Music We Love</h1>
+
+=======
 <h2>Welcome <%=session[:firstname] %></h2>
+>>>>>>> d9985e796cf5035375ba904bd9667f17b29dca23
 <div class="container">
+    <h1><%= image_tag "image.jpg" %> Music We Love</h1>
+    <h2>Welcome <%=session[:firstname] %></h2>
+    <br>
+
     <div class="row">
         <div class = "col">
         <form action="/friends/create" method="post">
             <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
         </form>
+
+
+        <h4>Find shows</h4>
+        <form action="/concerts" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"> 
+        Date:<input type="date" name="date"><br>
+        Artist:<input type="text" name="artist"><br>
+        City:<input type="text" name="city"><br>
+        
+        <input type="submit" value="Find">
+        </form>
+
+        <h3>past shows attended</h3>
+        
+        <table>
+            <thead>
+                <td>Show details:</td>
+            </thead>
+            <tbody>
+
+            </tbody>
+
+        </table>
+      
+        <br><br>
+
+
         <h3>Friends</h3>
         <table>
             <thead>
@@ -34,7 +68,7 @@
         <br>
         <h4>Find friends</h4>
         <form action="/find_friend" method="post">
-        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"> 
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
         <input type="text" name="name">
         <input type="submit" value="Find">
         </form>
@@ -44,19 +78,7 @@
         <% end %>
 
 
-        <br>
-        <br>
-        <h3>past shows attended</h3>
 
-        <table>
-                <thead>
-                    <td>Show details:</td>
-                </thead>
-                <tbody>
-    
-                </tbody>
-    
-            </table>
         </div>
     </div>
 </div>

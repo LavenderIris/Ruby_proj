@@ -4,6 +4,13 @@
     }
 </style>
 
+<form action="/concert_attended" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="submit" name="" value="Attended Concert">
+</form>
+
+<a href="/dashboard">Return to Dashboard</a>
+
 <div class = "container" >
     <div class = "row" >
         <div class = "col-md-6" >
@@ -25,7 +32,7 @@
     <% @songlist.each do |s| %>
         <% s["song"].each do |s2| %>
         <tr>
-            <td><%=s2["name"]%></td>
+            <td><div onclick="getLyrics(this.id, this.class)" id='<%=s2["name"]%>' class='<%=@bandname%>'><%=s2["name"]%></div></td>
         </tr>
         <% end %>
     <% end %>
@@ -77,9 +84,82 @@
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZlytKX1vyVfQi2Lw-1Zfuu1xKKFho68o&libraries=places&callback=initAutocomplete"
         async defer></script>
+
+
+        <div class = "col" id = "lyrics" >
+            <script type="text/javascript">
+                function getLyrics(song, band) {
+                    console.log(band)
+                    //this callback contains another query to get lyrics after we've retried the song id
+                    this.jsonp_callback = function(data){
+                        $.ajax({
+                            type: "GET",
+                            data: {
+                                apikey:"f3852752b58ca26b3340a0ae930e9086",
+                                format:"jsonp",
+                                callback:"jsonp_callback_lyrics"
+                            },
+                            url: "http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=" + data["message"]["body"]["track_list"][0]["track"]["track_id"],
+                            dataType: "jsonp",
+                            jsonpCallback: 'jsonp_callback_lyrics',
+                            contentType: 'application/json'
+                        });
+                    };
+                    
+
+                    //this callback adds lyrics to the #lyrics div
+                    this.jsonp_callback_lyrics = function(data){
+                        var lyrics = data["message"]["body"]["lyrics"]["lyrics_body"]
+                        var string = "<p>"
+
+                        for (var i=0; i<lyrics.length - 69; i++){
+                            string += lyrics[i]
+                            if (lyrics[i+1] == "\n" && lyrics[i+2] == "\n"){
+                                string += "</p><p>"
+                            }
+
+                        }
+                        string += "</p>"
+
+                        console.log(string)
+                        $("#lyrics").html(string);
+                    };
+
+
+                    //this finds the song's id using just the name of the song
+                    $.ajax({
+                    type: "GET",
+                    data: {
+                        apikey:"f3852752b58ca26b3340a0ae930e9086",
+                        q_track:song,
+                        q_artist:band,
+                        format:"jsonp",
+                        callback:"jsonp_callback"
+                    },
+                    url: "http://api.musixmatch.com/ws/1.1/track.search",
+                    dataType: "jsonp",
+                    jsonpCallback: 'jsonp_callback',
+                    contentType: 'application/json'
+                    });
+
+                }
+            </script>
         </div>
+
     </div>
+
+
 </div> 
+</div>
 
+<% if @bands %>
+    <% @bands.each do |b| %>
+        <a href="/bands/<%= b.id %>/"><%= b.name %></a>
+    <% end %>
+<% end %>
 
-</body>
+<form action="/bands/new" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input id="searchName" type="text" name="band[search]" value="Enter a band name">
+    <input type="submit" name="" value="Search">
+</form>

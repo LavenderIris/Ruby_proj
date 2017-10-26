@@ -1,21 +1,45 @@
+<style>
+    ul{
+        list-style: none;
+    }
+    .btn{
+        background-color: #21B4B1;
+        outline-color: none;
+        color: white;
+    }
+</style>
 
+<a href="/dashboard">Return to Dashboard</a>
 
-<% if @bands %>
-    <% @bands.each do |b| %>
-        <a href="/bands/<%= b.id %>/"><%= b.name %></a>
-    <% end %>
-<% end %>
+<div class="container">
+    <div class="row">
+        <h1>Bands</h1>
+    </div>
+    <div class="row">
+        <% if flash[:errors] %>
+            <% flash[:errors].each do |f| %>
+                <p> <%= f %> </p>
+            <% end %>
+        <% end %>
+        <div class="col-8">
+            <input id="searchName" type="text" name="band" value="Enter a band name">
+            <button class="btn" id="bandsearch" type="button" name="button">Search</button>
+        </div>
+        <div class="col-4">
+            <div id="band_results">
 
-<% if flash[:errors] %>
-    <% flash[:errors].each do |f| %>
-        <p> <%= f %> </p>
-    <% end %>
-<% end %>
-<input id="searchName" type="text" name="band" value="Enter a band name">
-<button id="bandsearch" type="button" name="button">Search</button>
-
-<div id="band_results">
-
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <% if @bands %>
+            <ul>
+            <% @bands.each do |b| %>
+                <li class="band_list"><a href="/bands/<%= b.id %>/"><%= b.name %></a></li>
+            <% end %>
+            </ul>
+        <% end %>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -25,15 +49,30 @@
             $.ajaxSetup({headers:{}})
             $.get('https://ws.audioscrobbler.com/2.0/?method=artist.search&artist=' +search_term+'&api_key=ba268e660cd43a240846b8eec02b92f9&limit=5&format=json',function(res){
                 var artists = res["results"]["artistmatches"]["artist"]
-                var html_str = ''
+                var html_str = '<h1>Search Results</h1>'
                 for (x = 0; x < artists.length; x++){
                     var names = artists[x]["name"]
                     html_str += "<form action='/bands/new' method='post'><input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>"
-                    html_str += "<input name='band' type='submit' value='"+String(artists[x]["name"])+"'>"
+                    html_str += "<input class='btn-link' name='band' type='submit' value='"+String(artists[x]["name"])+"'>"
                     html_str += '<br>'
                 }
-                $('#band_results').html(html_str)
-            })
-        })
-    )
-</script>
+            </script>
+        </div>
+
+    </div>
+
+
+</div> 
+</div>
+
+<% if @bands %>
+    <% @bands.each do |b| %>
+        <a href="/bands/<%= b.id %>/"><%= b.name %></a>
+    <% end %>
+<% end %>
+
+<form action="/bands/new" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input id="searchName" type="text" name="band[search]" value="Enter a band name">
+    <input type="submit" name="" value="Search">
+</form>
