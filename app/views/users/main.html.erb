@@ -44,24 +44,28 @@
         <div class="row">
             <div class="col">
                 <h3>Past Shows Attended</h3>
+
+                <table>
+                    <thead>
+                        <td>Show details:</td>
+                    </thead>
+                <tbody>
                 <% @concerts_attended.each do |c| %>
-                   <p> <%= c.concert.date %> <%= c.concert.band.name %> <%= c.concert.city %></p>
+                   <td> 
+                        <form action="/concert/<%=c.id%>">
+                            <input type="submit" class="btn-link" value =" <%= c.concert.date %> <%= c.concert.band.name %> <%= c.concert.city %>" >
+                        </form>
+                    </td>
                 <% end %>
+                </tbody>
+                </table>
             </div>
             <div class="col">
                 <a class="btn" href="/concerts/new">Add a show</a>
             </div>
         </div>
 
-        <table>
-            <thead>
-                <td>Show details:</td>
-            </thead>
-            <tbody>
-
-            </tbody>
-
-        </table>
+       
     </div>
 
     <div class="col-4">
