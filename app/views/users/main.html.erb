@@ -44,26 +44,34 @@
         <div class="row">
             <div class="col">
                 <h3>Past Shows Attended</h3>
+
+                <table>
+                    <thead>
+                        <td>Show details:</td>
+                    </thead>
+                <tbody>
+                <% @concerts_attended.each do |c| %>
+                   <td> 
+                        <form action="/concert/<%=c.id%>">
+                            <input type="submit" class="btn-link" value =" <%= c.concert.date %> <%= c.concert.band.name %> <%= c.concert.city %>" >
+                        </form>
+                    </td>
+                <% end %>
+                </tbody>
+                </table>
             </div>
             <div class="col">
                 <a class="btn" href="/concerts/new">Add a show</a>
             </div>
         </div>
 
-        <table>
-            <thead>
-                <td>Show details:</td>
-            </thead>
-            <tbody>
-
-            </tbody>
-
-        </table>
+       
     </div>
 
     <div class="col-4">
-
-        <h3>Friends</h3>
+        <div class="row">
+            <h3>Friends</h3>
+        </div>
         <table>
             <thead>
                 <td>Names:</td>
@@ -76,22 +84,38 @@
                 </tr>
             <% end %>
             </tbody>
-
         </table>
         <br>
-            <div class="col">
-                <h4>Find friends</h4>
-                <form action="/find_friend" method="post">
-                    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-                    <div class="form-group">
-                        <input type="text" name="name">
-                    </div>
-                    <div class="form-group">
-                        <input class="btn" type="submit" value="Find">
-                    </div>
-                </form>
+        <h4>Find friends</h4>
+        <form action="/find_friend" method="post">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <div class="form-group">
+                <input type="text" name="name">
             </div>
+            <div class="form-group">
+                <input class="btn" type="submit" value="Find">
+            </div>
+        </form>
+        <div class="row">
+            <h3>Band Wish List</h3>
         </div>
+        <div class="row">
+            <table>
+                <thead>
+                    <td>Names:</td>
+                </thead>
+                <tbody>
+                <% if @wish %>
+                    <% @wish.each do |w| %>
+                        <tr>
+                            <td><a href="/bands/<%= w.id %>"><%=w.name%></a></td>
+                        </tr>
+                    <% end %>
+                <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
     </div>
 
     <% flash.each do |key, value| %>

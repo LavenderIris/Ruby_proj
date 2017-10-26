@@ -9,9 +9,11 @@ class ConcertsController < ApplicationController
 
         response = HTTParty.get("https://api.setlist.fm/rest/1.0/search/setlists",:query => { :artistName => artist, :cityName => cityname , :date => date },:headers => { "x-api-key" => "1128bdd4-2942-4334-b4fa-5cf725b57260","Accept" => "application/json" })
         puts response.body
+      
 
         if response["code"].eql? 404
             @concert = Concert.find_by(band:Band.find_by(name:params[:artist]), city:params[:city], date:params[:date])
+            # binding.pry
             unless @concert.nil?
                 @concert
                 render 'info.html.erb'
@@ -39,8 +41,12 @@ class ConcertsController < ApplicationController
                     end
                 end 
             end
+<<<<<<< HEAD
         
 
+=======
+    
+>>>>>>> 29e78d41de606920944d3f5ce1b65245a2396046
             @longitude = testvar["setlist"][0]["venue"]["city"]["coords"]["long"]
             @lat = testvar["setlist"][0]["venue"]["city"]["coords"]["lat"]
             @songlist = testvar["setlist"][0]["sets"]["set"]
