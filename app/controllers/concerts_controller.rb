@@ -24,19 +24,32 @@ class ConcertsController < ApplicationController
         else
             testvar = JSON.parse(response.body)
 
-            @longitude = testvar["setlist"][0]["venue"]["city"]["coords"]["long"]
-            @lat = testvar["setlist"][0]["venue"]["city"]["coords"]["lat"]
-            @songlist = testvar["setlist"][0]["sets"]["set"]
-            @bandname = testvar["setlist"][0]["artist"]["name"]
-            @venuename = testvar["setlist"][0]["venue"]["name"]
-            @venuecity = testvar["setlist"][0]["venue"]["city"]["name"]
-            @venuestate = testvar["setlist"][0]["venue"]["city"]["state"]
-            t = testvar["setlist"][0]["eventDate"]
-            cdate = Date.strptime(t, "%d-%m-%Y" )
-            @eventdate = cdate.strftime("%A, %B %d %Y")
-
-            render '/concerts/index.html.erb'
+            b = Band.find_by(name: artist)
+            if b.nil?
+                b = Band.create(name:params[artist])
+                Concert.create(band: b, city: params[:city], date: params[:date], user: current_user) 
+            else 
+                c = Concert.find_by(band: b, date:params[:date], city:params[:city])
+                if c.nil?
+                    Concert.create(band: b, city: params[:city], date: params[:date], user: current_user)
+                    
+                end 
+            end
         end
+
+        @longitude = testvar["setlist"][0]["venue"]["city"]["coords"]["long"]
+        @lat = testvar["setlist"][0]["venue"]["city"]["coords"]["lat"]
+        @songlist = testvar["setlist"][0]["sets"]["set"]
+        @bandname = testvar["setlist"][0]["artist"]["name"]
+        @venuename = testvar["setlist"][0]["venue"]["name"]
+        @venuecity = testvar["setlist"][0]["venue"]["city"]["name"]
+        @venuestate = testvar["setlist"][0]["venue"]["city"]["state"]
+        t = testvar["setlist"][0]["eventDate"]
+        cdate = Date.strptime(t, "%d-%m-%Y" )
+        @eventdate = cdate.strftime("%A, %B %d %Y")
+
+        render '/concerts/index.html.erb'
+    
     end
 
     def new
