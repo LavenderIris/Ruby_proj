@@ -1,0 +1,50 @@
+date,venue,city,state,band_id,user_id
+10-30-2017,Pepsi Center,Denver,CO,1,1
+11-17-2017,Golden 1 Center,Sacramento,CA,1,1
+11-20-2017,SAP Center,San Jose,CA,1,1
+12-02-2016,Staples Center,Los Angeles,CA,1,1
+11-24-2017,Tacoma Dome,Tacoma,WA,1,1
+10-07-2017,Pepsi Center,Denver,CO,1,1
+11-06-2016,Staples Center,Los Angeles,CA,1,1
+02-07-2016,Levi's Stadium,Santa Clara,CA,1,1
+05-15-2015,City of Rock MGM Resorts Festival Grounds,Las Vegas,NV,1,1
+05-16-2015,City of Rock MGM Resorts Festival Grounds,Las Vegas,NV,1,1
+10-14-2014,Civic Center,San Francisco,CA,1,1
+10-04-2017,Radio City Music Hall,New York,NY,2,1
+09-27-2017,Comerica Theatre,Phoenix,AZ,2,1
+09-26-2017,The Greek Theatre,Los Angeles,CA,2,1
+09-24-2017,Paramount Theater,Oakland,CA,2,1
+09-22-2017,UCCU Center,Orem,UT,2,1
+09-21-2017,Bellco Theater,Denver,CO,2,1
+09-19-2017,Orpheum Theater,Sioux City,IA,2,1
+09-06-2017,Moran Theater,Jacksonville,FL,2,1
+08-25-2017,Central Park Summerstage,New York,NY,2,1
+08-14-2017,Iowa State Fair,Des Moines,IA,2,1
+07-28-2017,Grand Casino Hickley Events & Convention Center,Hinckley,MN,2,1
+05-20-2017,StubHub Center,Carson,CA,2,1
+05-25-2015,Arlene Schnitzer Concert Hall,Portland,OR,2,1
+02-28-2017,Domain Stadium,Perth,WA,3,1
+09-26-2016,Madison Square Garden,New York,NY,3,1
+09-25-2016,Madison Square Garden,New York,NY,3,1
+09-22-2016,Madison Square Garden,New York,NY,3,1
+09-20-2016,Madison Square Garden,New York,NY,3,1
+09-19-2016,Madison Square Garden,New York,NY,3,1
+09-14-2016,Madison Square Garden,Boston,MA,3,1
+08-20-2016,Staples Center,Los Angeles,CA,3,1
+08-12-2016,Staples Center,Los Angeles,CA,3,1
+08-10-2016,Staples Center,Los Angeles,CA,3,1
+08-06-2016,Staples Center,Los Angeles,CA,3,1
+08-02-2016,Oracle Arena,Oakland,CA,3,1
+07-30-2016,SAP Center at San Jose,San Jose,CA,3,1
+10-20-2017,Steele Indian School Park,Phoenix,AZ,4,1
+10-08-2017,Zilker Park,Austin,TX,4,1
+10-06-2017,Zilker Park,Austin,TX,4,1
+09-23-2017,Great Lawn at Central Park,New York,NY,4,1
+09-22-2017,Terminal 5,New York,NY,4,1
+09-19-2017,Brooklyn Steel,Brooklyn,NY,4,1
+01-08-2017,ACL Live,Austin,TX,4,1
+06-18-2016,ATT Park,San Francisco,CA,4,1
+06-25-2017,Brookside Park,Pasadena,CA,5,1
+06-24-2017,Shoreline Amphitheater,Mountain View,CA,5,1
+05-26-2017,Harvard Athletic Complex,Boston,MA,5,1
+05-27-2017,Harvard Athletic Complex,Boston,MA,5,1

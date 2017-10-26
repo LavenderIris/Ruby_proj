@@ -16,6 +16,21 @@
     </form>
 <% end %>
 
+<% if @isfriend.count == 0 %>
+<form action="/friends/<%= @user.id %>" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="submit" name="" value="Add as friend">
+</form>
+<% else %>
+<form action="/friends/<%= @user.id %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="submit" name="" value="Remove friend">
+</form>
+
+<% end %>
+
+
 
 <style>
     .table {
@@ -25,9 +40,10 @@
 </style>
 
 
-    <h1>Learn more about: <%= @user.first_name %> <%= @user.last_name %></h1>
+   
 
 <div class="container">
+        <h1>Learn more about: <%= @user.first_name %> <%= @user.last_name %></h1>
     <div class="row">
         <div class = "col">
         <form action="/friends/create" method="post">

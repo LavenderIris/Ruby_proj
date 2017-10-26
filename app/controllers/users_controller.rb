@@ -15,7 +15,11 @@ class UsersController < ApplicationController
     end
 
     def show
+
         @user = User.find(params[:id])
+        @friend = User.find(params[:id])
+        @isfriend =  current_user.friends.where(first_name:@friend.first_name).where(last_name: @friend.last_name)
+        binding.pry
     end
 
     def show_dashboard
@@ -47,7 +51,7 @@ class UsersController < ApplicationController
             puts "success!"
             # success! 
             puts "ID", @friend.id
-            binding.pry
+         
             redirect_to '/users/' + @friend.id.to_s
         end
 
