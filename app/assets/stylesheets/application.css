@@ -14,3 +14,8 @@
  *= require_self
  */
 
+ .btn{
+     background-color: #21B4B1;
+     outline-color: none;
+     color: white;
+ }
