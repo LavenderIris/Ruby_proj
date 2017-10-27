@@ -25,6 +25,10 @@ class UsersController < ApplicationController
         @friends = User.find(session[:id]).friends
         @wish = current_user.band_wishes
         @concerts_attended = Attend.where(user:current_user)
+        @cities = []
+        @concerts_attended.each do |c|
+            @cities << c.concert.city + ", "  + c.concert.state
+        end
         render '/users/main.html.erb'
     end
 

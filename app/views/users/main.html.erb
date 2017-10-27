@@ -119,7 +119,54 @@
                 </tbody>
             </table>
         </div>
-    </div>
+        <%= content_tag :div, id:"cities", data: {temp: @cities} do |c|%>
+        <% end %>
+        <div class = "col-md-6">
+        
+            <body onload="initialize(), codeAddress()">
+            <div id="map" style="width: 320px; height: 480px;"></div>
+        
+            <script>
+            var geocoder;
+            var map;
+            function initialize() {
+            geocoder = new google.maps.Geocoder();
+            //coords in LatLng() is where the map will center to when initialized
+            var latlng = new google.maps.LatLng(37.6, -121.7);
+            var mapOptions = {
+            zoom: 7,
+            center: latlng
+            }
+            map = new google.maps.Map(document.getElementById('map'), mapOptions);
+            }
+    
+            //array of coords to render as markers
+            var locations = $('#cities').data('temp')
+            console.log(locations)
+            //iterate through each coord pair and create a marker on the map
+            function codeAddress(){
+            for (var i=0;i<locations.length;i++){
+            geocoder.geocode( { 'address': locations[i]}, function(results, status) {
+            if (status == 'OK') {
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                });
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+            });
+            }
+            }
+    
+
+        
+                </script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZlytKX1vyVfQi2Lw-1Zfuu1xKKFho68o&libraries=places&callback=initAutocomplete"
+                async defer>
+                
+                </script>
+                </div>
     </div>
 
     <% flash.each do |key, value| %>

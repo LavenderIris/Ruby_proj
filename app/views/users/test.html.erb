@@ -1,0 +1,42 @@
+<body onload="initialize(), codeAddress()">
+            <div id="map" style="width: 320px; height: 480px;"></div>
+        
+                <script>
+                var geocoder;
+                var map;
+                function initialize() {
+                geocoder = new google.maps.Geocoder();
+                
+                var latlng = new google.maps.LatLng(36, -122);
+                var mapOptions = {
+                zoom: 10,
+                center: latlng
+                }
+                map = new google.maps.Map(document.getElementById('map'), mapOptions);
+                }
+
+                var locations = []
+                
+                <% if @cities %>
+                    locations = <%=@cities%>
+                    <% %>
+                <%end%>
+
+                function codeAddress(){
+                for (var i=0;i<locations.length;i++){
+                geocoder.geocode( { 'address': locations[i]}, function(results, status) {
+                if (status == 'OK') {
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                    });
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+                });
+                }
+                }
+        
+                </script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZlytKX1vyVfQi2Lw-1Zfuu1xKKFho68o&libraries=places&callback=initAutocomplete"
+                async defer></script>

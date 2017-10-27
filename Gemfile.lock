@@ -56,8 +56,6 @@ GEM
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.9.18)
-    font-awesome-sass (4.7.0)
-      sass (>= 3.2)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     hirb (0.7.3)
@@ -176,7 +174,6 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   byebug
   coffee-rails (~> 4.2)
-  font-awesome-sass
   hirb
   httparty
   jbuilder (~> 2.5)
