@@ -50,13 +50,17 @@
                         <td>Show details:</td>
                     </thead>
                 <tbody>
-                <% @concerts_attended.each do |c| %>
+                
+                    <% @concerts_attended.each do |c| %>
+                    <tr>
                    <td> 
-                        <form action="/concert/<%=c.id%>">
+                        <form action="/concerts/<%=c.concert.id%>">
                             <input type="submit" class="btn-link" value =" <%= c.concert.date %> <%= c.concert.band.name %> <%= c.concert.city %>" >
                         </form>
                     </td>
-                <% end %>
+                </tr>
+                    <% end %>
+               
                 </tbody>
                 </table>
             </div>
