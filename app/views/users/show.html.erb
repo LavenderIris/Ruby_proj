@@ -54,11 +54,13 @@
                 <td>Names:</td>
             </thead>
             <tbody>
-            <% @user.friends.each do |friend| %>
-                <tr>
-                    <td><a href="/users/<%=friend.id%>"><%=friend.first_name%> <%=friend.last_name%></a></td>
+            <% if @friendships %>
+                <% @friendships.each do |friend| %>
+                    <tr>
+                        <td><a href="/users/<%=friend.id%>"><%=friend.first_name%> <%=friend.last_name%></a></td>
 
-                </tr>
+                    </tr>
+                <% end %>
             <% end %>
             </tbody>
 
@@ -73,7 +75,14 @@
                     <td>Show details:</td>
                 </thead>
                 <tbody>
-
+                    <% if @concerts %>
+                        <% @concerts.each do |concert| %>
+                        <tr>
+                            <td><a href="/concerts/<%=concert.id%>"><%=concert.date%> <%=concert.band.name%></a></td>
+        
+                        </tr>
+                        <% end %>
+                    <% end %>
                 </tbody>
 
             </table>
