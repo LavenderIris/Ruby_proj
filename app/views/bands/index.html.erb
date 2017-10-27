@@ -26,11 +26,20 @@
         <% end %>
         <div class="col-8">
             <% if @bands %>
-                <ul class="list-group">
-                <% @bands.each do |b| %>
-                    <li class="band_list list-group-item"><a href="/bands/<%= b.id %>/"><%= b.name %></a></li>
-                <% end %>
-                </ul>
+                <table>
+                    <thead>
+                        <td>Names:</td>
+                    </thead>
+                    <tbody>
+                        <% @bands.each do |b| %>
+                        <tr>
+                           <td>
+                               <a href="/bands/<%= b.id %>/"><%= b.name %></a>
+                           </td>
+                        </tr>
+                        <% end %>
+                   </tbody>
+                </table>
             <% end %>
         </div>
         <div class="col-4">

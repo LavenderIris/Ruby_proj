@@ -18,6 +18,8 @@ class UsersController < ApplicationController
     def show
         @user = User.find(params[:id])
         @friend = User.find(params[:id])
+        @friendships = User.find(params[:id]).friends
+        @concerts = User.find(params[:id]).concerts
         @isfriend =  current_user.friends.where(first_name:@friend.first_name).where(last_name: @friend.last_name)
     end
 
