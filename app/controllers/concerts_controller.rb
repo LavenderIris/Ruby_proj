@@ -62,10 +62,10 @@ class ConcertsController < ApplicationController
     end
 
     def show_page
-        concert = Concert.find(params[:id])
-        artist = concert.band.name
-        cityname = concert.city
-        tempdate = concert.date.to_s.split('-')
+        @concert = Concert.find(params[:id])
+        artist = @concert.band.name
+        cityname = @concert.city
+        tempdate = @concert.date.to_s.split('-')
     
 
         date = tempdate[2]+'-'+tempdate[1]+'-2017'
