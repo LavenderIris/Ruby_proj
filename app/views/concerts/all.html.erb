@@ -1,24 +1,26 @@
-<div class="row">
-    <div class="col">
-        <h3>Past Shows Attended</h3>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3>Past Shows Attended</h3>
 
-        <table>
-            <thead>
-                <td>Show details:</td>
-            </thead>
-        <tbody>
-        
-            <% @concerts.each do |c| %>
-            <tr>
-        <td> 
-                <form action="/concerts/<%=c.id%>">
-                    <input type="submit" class="btn-link" value =" <%= c.date %> <%= c.band.name %> <%= c.city %>" >
-                </form>
-            </td>
-        </tr>
-            <% end %>
-    
-        </tbody>
-        </table>
+            <table>
+                <thead>
+                    <td>Show details:</td>
+                </thead>
+            <tbody>
+
+                <% @concerts.each do |c| %>
+                <tr>
+            <td>
+                    <form action="/concerts/<%=c.id%>">
+                        <input type="submit" class="btn-link" value =" <%= c.date %> <%= c.band.name %> <%= c.city %>" >
+                    </form>
+                </td>
+            </tr>
+                <% end %>
+
+            </tbody>
+            </table>
+        </div>
     </div>
 </div>

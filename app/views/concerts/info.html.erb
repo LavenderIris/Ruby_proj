@@ -1,15 +1,17 @@
-<form action="/concert_attended" method="post">
-<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-<input type="hidden" name="date" value="<%=@concert.date%>">
-<input type="hidden" name="venue" value="<%=@concert.venue%>">
-<input type="hidden" name="city" value="<%=@concert.city%>">
-<input type="hidden" name="state" value="<%=@concert.state%>">
-<input type="hidden" name="band" value="<%=@concert.band.name%>">
-<input type="submit" value="Attended Concert">
-</form>
+<div class="container">
+    <form action="/concert_attended" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="hidden" name="date" value="<%=@concert.date%>">
+        <input type="hidden" name="venue" value="<%=@concert.venue%>">
+        <input type="hidden" name="city" value="<%=@concert.city%>">
+        <input type="hidden" name="state" value="<%=@concert.state%>">
+        <input type="hidden" name="band" value="<%=@concert.band.name%>">
+        <input class='btn' type="submit" value="Attended Concert">
+    </form>
 
-<h3><%= @concert.band.name %></h3>
-<h4>Venue Name: <%= @concert.venue %></h4>
-<h4>Location: <%= @concert.city %></h4>
-<h4>State: <%= @concert.state %></h4>
-<h4>Date: <%= @concert.date %></h4>
+    <h3><%= @concert.band.name %></h3>
+    <h4>Venue Name: <%= @concert.venue %></h4>
+    <h4>Location: <%= @concert.city %></h4>
+    <h4>State: <%= @concert.state %></h4>
+    <h4>Date: <%= @concert.date %></h4>
+</div>

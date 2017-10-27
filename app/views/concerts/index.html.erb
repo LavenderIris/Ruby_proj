@@ -3,154 +3,156 @@
         width: auto;
     }
 </style>
+<div class="container">
 
-<form action="/concert_attended" method="post">
-    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-    <input type="hidden" name="date" value="<%=@eventdate%>">
-    <input type="hidden" name="venue" value="<%=@venuename%>">
-    <input type="hidden" name="city" value="<%=@venuecity%>">
-    <input type="hidden" name="state" value="<%=@venuestate%>">
-    <input type="hidden" name="band" value="<%=@bandname%>">
-    <input type="submit" value="Attended Concert">
-</form>
+    <form action="/concert_attended" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="hidden" name="date" value="<%=@eventdate%>">
+        <input type="hidden" name="venue" value="<%=@venuename%>">
+        <input type="hidden" name="city" value="<%=@venuecity%>">
+        <input type="hidden" name="state" value="<%=@venuestate%>">
+        <input type="hidden" name="band" value="<%=@bandname%>">
+        <input class="btn" type="submit" value="Attended Concert">
+    </form>
 
-<div class = "container" >
-    <div class = "row" >
-        <div class = "col-md-6" >
+    <div class = "container" >
+        <div class = "row" >
+            <div class = "col-md-6" >
 
-<h3><%= @bandname %></h3>
-<h4>Venue Name: <%= @venuename %></h4>
-<h4>Location: <%= @venuecity %></h4>
-<h4>State: <%= @venuestate %></h4>
-<h4>Date: <%= @eventdate %></h4>
+    <h3><%= @bandname %></h3>
+    <h4>Venue Name: <%= @venuename %></h4>
+    <h4>Location: <%= @venuecity %></h4>
+    <h4>State: <%= @venuestate %></h4>
+    <h4>Date: <%= @eventdate %></h4>
 
-<table class="table">
-    <col width="400">
-    <thead class="thead-inverse">
-      <tr>
-        <th>Songs</th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @songlist.each do |s| %>
-        <% s["song"].each do |s2| %>
-        <tr>
-            <td><div onclick="getLyrics(this.id, this.class)" id='<%=s2["name"]%>' class='<%=@bandname%>'><%=s2["name"]%></div></td>
-        </tr>
+    <table class="table">
+        <col width="400">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Songs</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @songlist.each do |s| %>
+            <% s["song"].each do |s2| %>
+            <tr>
+                <td><div onclick="getLyrics(this.id, this.class)" id='<%=s2["name"]%>' class='<%=@bandname%>'><%=s2["name"]%></div></td>
+            </tr>
+            <% end %>
         <% end %>
-    <% end %>
-    </tbody>
+        </tbody>
 
-</table>
-
-</div>
-
-<div class = "col-md-6">
-
-    <body onload="initialize(), codeAddress()">
-    <div id="map" style="width: 320px; height: 480px;"></div>
-
-
-        <script>
-        var geocoder;
-        var map;
-        function initialize() {
-        geocoder = new google.maps.Geocoder();
-        //coords in LatLng() is where the map will center to when initialized
-        var latlng = new google.maps.LatLng(<%= @lat %>, <%= @longitude %>);
-        var mapOptions = {
-        zoom: 10,
-        center: latlng
-        }
-        map = new google.maps.Map(document.getElementById('map'), mapOptions);
-        }
-
-        //array of coords to render as markers
-        var locations = [{lat:<%= @lat %>, lng:<%= @longitude %>}]
-        //iterate through each coord pair and create a marker on the map
-        function codeAddress(){
-        for (var i=0;i<locations.length;i++){
-        geocoder.geocode( { 'latLng': locations[i]}, function(results, status) {
-        if (status == 'OK') {
-            var marker = new google.maps.Marker({
-                map: map,
-                position: results[0].geometry.location
-            });
-        } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-        }
-        });
-        }
-        }
-
-        //api key
-        </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZlytKX1vyVfQi2Lw-1Zfuu1xKKFho68o&libraries=places&callback=initAutocomplete"
-        async defer></script>
-
-
-        <div class = "col" id = "lyrics" >
-            <script type="text/javascript">
-                function getLyrics(song, band) {
-                    console.log(band)
-                    //this callback contains another query to get lyrics after we've retried the song id
-                    this.jsonp_callback = function(data){
-                        $.ajax({
-                            type: "GET",
-                            data: {
-                                apikey:"f3852752b58ca26b3340a0ae930e9086",
-                                format:"jsonp",
-                                callback:"jsonp_callback_lyrics"
-                            },
-                            url: "http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=" + data["message"]["body"]["track_list"][0]["track"]["track_id"],
-                            dataType: "jsonp",
-                            jsonpCallback: 'jsonp_callback_lyrics',
-                            contentType: 'application/json'
-                        });
-                    };
-
-
-                    //this callback adds lyrics to the #lyrics div
-                    this.jsonp_callback_lyrics = function(data){
-                        var lyrics = data["message"]["body"]["lyrics"]["lyrics_body"]
-                        var string = "<p>"
-
-                        for (var i=0; i<lyrics.length - 69; i++){
-                            string += lyrics[i]
-                            if (lyrics[i+1] == "\n" && lyrics[i+2] == "\n"){
-                                string += "</p><p>"
-                            }
-
-                        }
-                        string += "</p>"
-
-                        console.log(string)
-                        $("#lyrics").html("<h1>Lyrics</h1>" + string);
-                    };
-
-
-                    //this finds the song's id using just the name of the song
-                    $.ajax({
-                    type: "GET",
-                    data: {
-                        apikey:"f3852752b58ca26b3340a0ae930e9086",
-                        q_track:song,
-                        q_artist:band,
-                        format:"jsonp",
-                        callback:"jsonp_callback"
-                    },
-                    url: "http://api.musixmatch.com/ws/1.1/track.search",
-                    dataType: "jsonp",
-                    jsonpCallback: 'jsonp_callback',
-                    contentType: 'application/json'
-                    });
-
-                }
-            </script>
-        </div>
+    </table>
 
     </div>
 
+    <div class = "col-md-6">
 
-</div>
+        <body onload="initialize(), codeAddress()">
+        <div id="map" style="width: 320px; height: 480px;"></div>
+
+
+            <script>
+            var geocoder;
+            var map;
+            function initialize() {
+            geocoder = new google.maps.Geocoder();
+            //coords in LatLng() is where the map will center to when initialized
+            var latlng = new google.maps.LatLng(<%= @lat %>, <%= @longitude %>);
+            var mapOptions = {
+            zoom: 10,
+            center: latlng
+            }
+            map = new google.maps.Map(document.getElementById('map'), mapOptions);
+            }
+
+            //array of coords to render as markers
+            var locations = [{lat:<%= @lat %>, lng:<%= @longitude %>}]
+            //iterate through each coord pair and create a marker on the map
+            function codeAddress(){
+            for (var i=0;i<locations.length;i++){
+            geocoder.geocode( { 'latLng': locations[i]}, function(results, status) {
+            if (status == 'OK') {
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                });
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+            });
+            }
+            }
+
+            //api key
+            </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZlytKX1vyVfQi2Lw-1Zfuu1xKKFho68o&libraries=places&callback=initAutocomplete"
+            async defer></script>
+
+
+            <div class = "col" id = "lyrics" >
+                <script type="text/javascript">
+                    function getLyrics(song, band) {
+                        console.log(band)
+                        //this callback contains another query to get lyrics after we've retried the song id
+                        this.jsonp_callback = function(data){
+                            $.ajax({
+                                type: "GET",
+                                data: {
+                                    apikey:"f3852752b58ca26b3340a0ae930e9086",
+                                    format:"jsonp",
+                                    callback:"jsonp_callback_lyrics"
+                                },
+                                url: "http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=" + data["message"]["body"]["track_list"][0]["track"]["track_id"],
+                                dataType: "jsonp",
+                                jsonpCallback: 'jsonp_callback_lyrics',
+                                contentType: 'application/json'
+                            });
+                        };
+
+
+                        //this callback adds lyrics to the #lyrics div
+                        this.jsonp_callback_lyrics = function(data){
+                            var lyrics = data["message"]["body"]["lyrics"]["lyrics_body"]
+                            var string = "<p>"
+
+                            for (var i=0; i<lyrics.length - 69; i++){
+                                string += lyrics[i]
+                                if (lyrics[i+1] == "\n" && lyrics[i+2] == "\n"){
+                                    string += "</p><p>"
+                                }
+
+                            }
+                            string += "</p>"
+
+                            console.log(string)
+                            $("#lyrics").html("<h1>Lyrics</h1>" + string);
+                        };
+
+
+                        //this finds the song's id using just the name of the song
+                        $.ajax({
+                        type: "GET",
+                        data: {
+                            apikey:"f3852752b58ca26b3340a0ae930e9086",
+                            q_track:song,
+                            q_artist:band,
+                            format:"jsonp",
+                            callback:"jsonp_callback"
+                        },
+                        url: "http://api.musixmatch.com/ws/1.1/track.search",
+                        dataType: "jsonp",
+                        jsonpCallback: 'jsonp_callback',
+                        contentType: 'application/json'
+                        });
+
+                    }
+                </script>
+            </div>
+
+        </div>
+
+
+    </div>
+    </div>
 </div>
